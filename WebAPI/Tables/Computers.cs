@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAPI
+namespace WebAPI.Tables
 {
-    [Table("tbComputers")]
+    [Table("Computers")]
     public class Computers
     {
         public int ID { get; set; }
