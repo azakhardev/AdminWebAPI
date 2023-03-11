@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace WebAPI.Tables
 {
     [Table("Logs")]
