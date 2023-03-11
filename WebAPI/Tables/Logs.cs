@@ -17,5 +17,11 @@ namespace WebAPI.Tables
 
         public string Message { get; set; }
 
+        [ForeignKey("ComputerID")]
+        public virtual Computers Computers { get; set; }
+
+        [ForeignKey("ComputerID")]
+        public virtual Configs Configs { get; set; }
+
     }
 }

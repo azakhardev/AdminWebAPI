@@ -8,5 +8,11 @@ namespace WebAPI.Tables
         public int GroupID { get; set; }
 
         public int ConfigID { get; set; }
+
+        [ForeignKey("GroupID")]
+        public virtual Groups Groups { get; set; }
+
+        [ForeignKey("ConfigID")]
+        public virtual Configs Configs { get; set; }
     }
 }

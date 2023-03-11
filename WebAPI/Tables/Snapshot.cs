@@ -18,5 +18,7 @@ namespace WebAPI.Tables
 
         public int MaxPackageSize { get; set; }
 
+        [ForeignKey ("ConfigID")]
+        public virtual Configs Configs { get; set; }
     }
 }

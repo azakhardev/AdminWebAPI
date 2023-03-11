@@ -8,5 +8,8 @@ namespace WebAPI.Tables
         public int ComputerID { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
+
+        [ForeignKey("ComputerID")]
+        public virtual Computers Computers { get; set; }
     }
 }

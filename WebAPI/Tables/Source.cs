@@ -16,5 +16,8 @@ namespace WebAPI.Tables
         public DateTime CreationDate { get; set; }
 
         public DateTime UpdateDate { get; set;}
+
+        [ForeignKey("ConfigsID")]
+        public virtual Configs Configs { get; set; }
     }
 }
