@@ -24,3 +24,4 @@ app.MapControllers();
 
 app.Run();
 Console.WriteLine("Otava je kokot");
+//co to je ten gitHub
