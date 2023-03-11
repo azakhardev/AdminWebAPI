@@ -23,6 +23,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-//Packa je kokot
-//Packa je kokot
-//aRTEM JE PÕ»US
