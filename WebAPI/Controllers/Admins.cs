@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,29 +11,34 @@ namespace WebAPI.Controllers
     [ApiController]
     public class Admins : ControllerBase
     {
-        BackupDatabase bd = new BackupDatabase();   
-
+        BackupDatabase dbBackup = new BackupDatabase();   
+        
         // GET: api/<Admins>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            List<Tables.tbAdmins> Foo = dbBackup.Admins.FromSqlRaw("SELECT Username FROM Admins WHERE ID >= {0}",1).ToList();
+            string[] administrators = new string[] { };
+            foreach (Tables.tbAdmins admin in Foo) 
+            {
+                administrators = administrators.Append(admin.Username).ToArray();
+            }
+            return administrators;
         }
 
         // GET api/<Admins>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return dbBackup.Admins.FromSqlRaw("SELECT * FROM Admins WHERE ID = {0}", id).ToString();
         }
 
         // POST api/<Admins>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Tables.tbAdmins value)
         {
-            Tables.Admins admin = new Tables.Admins() {Username = "Karel",  Password = "123456", Description = "xxx",Email= "karel@mail.com", Active = true,};
-            bd.Add(admin);
-            bd.SaveChanges();
+            dbBackup.Admins.Add(value);
+            dbBackup.SaveChanges();
         }
 
         // PUT api/<Admins>/5

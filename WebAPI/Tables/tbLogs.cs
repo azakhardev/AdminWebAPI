@@ -3,7 +3,7 @@
 namespace WebAPI.Tables
 {
     [Table("Logs")]
-    public class Logs
+    public class tbLogs
     {
         public int ID { get; set; }
 
@@ -18,10 +18,10 @@ namespace WebAPI.Tables
         public string Message { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual Computers Computers { get; set; }
+        public virtual tbComputers Computers { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual Configs Configs { get; set; }
+        public virtual tbConfigs Configs { get; set; }
 
     }
 }

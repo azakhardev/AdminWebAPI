@@ -3,16 +3,16 @@
 namespace WebAPI.Tables
 {
     [Table("GroupConfig")]
-    public class GroupConfig
+    public class tbGroupConfig
     {
         public int GroupID { get; set; }
 
         public int ConfigID { get; set; }
 
         [ForeignKey("GroupID")]
-        public virtual Groups Groups { get; set; }
+        public virtual tbGroups Groups { get; set; }
 
         [ForeignKey("ConfigID")]
-        public virtual Configs Configs { get; set; }
+        public virtual tbConfigs Configs { get; set; }
     }
 }

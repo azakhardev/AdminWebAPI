@@ -3,15 +3,15 @@
 namespace WebAPI.Tables
 {
     [Table("ComputerConfig")]
-    public class ComputerConfig
+    public class tbComputerConfig
     {
         public int ComputerID { get; set; }
         public int ConfigID { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual Computers Computers { get; set; }
+        public virtual tbComputers Computers { get; set; }
 
         [ForeignKey("ConfigID")]
-        public virtual Configs Configs { get; set; }
+        public virtual tbConfigs Configs { get; set; }
     }
 }

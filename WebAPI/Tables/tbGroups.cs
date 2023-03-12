@@ -2,7 +2,7 @@
 namespace WebAPI.Tables
 {
     [Table("Groups")]
-    public class Groups
+    public class tbGroups
     {
         public int ID { get; set; } 
         public int ComputerID { get; set; }
@@ -10,6 +10,6 @@ namespace WebAPI.Tables
         public string Description { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual Computers Computers { get; set; }
+        public virtual tbComputers Computers { get; set; }
     }
 }

@@ -6,27 +6,27 @@ namespace WebAPI
 {
     public class BackupDatabase : DbContext
     {
-        public DbSet<Tables.Admins> Admins { get; set; }
+        public DbSet<Tables.tbAdmins> Admins { get; set; }
         
-        public DbSet<Tables.ComputerConfig> ComputerConfig { get; set; }
+        public DbSet<Tables.tbComputerConfig> ComputerConfig { get; set; }
         
-        public DbSet<Tables.Computers> Computers { get; set; }
+        public DbSet<Tables.tbComputers> Computers { get; set; }
 
-        public DbSet<Tables.Configs> Configs { get; set; }
+        public DbSet<Tables.tbConfigs> Configs { get; set; }
 
-        public DbSet<Tables.Destinations> Destinations { get; set; }
+        public DbSet<Tables.tbDestinations> Destinations { get; set; }
 
-        public DbSet<Tables.GroupConfig> GroupConfig { get; set; }
+        public DbSet<Tables.tbGroupConfig> GroupConfig { get; set; }
 
-        public DbSet<Tables.Groups> Groups { get; set; }
+        public DbSet<Tables.tbGroups> Groups { get; set; }
 
-        public DbSet<Tables.Logs> Logs { get; set; }
+        public DbSet<Tables.tbLogs> Logs { get; set; }
 
-        public DbSet<Tables.MacAdresses> MacAdresses { get; set; }
+        public DbSet<Tables.tbMacAdresses> MacAdresses { get; set; }
 
-        public DbSet<Tables.Snapshots> Snapshots { get; set; }
+        public DbSet<Tables.tbSnapshots> Snapshots { get; set; }
 
-        public DbSet<Tables.Sources> Sources { get; set; }
+        public DbSet<Tables.tbSources> Sources { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

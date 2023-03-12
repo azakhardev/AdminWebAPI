@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebAPI.Tables
 {
     [Table("Configs")]
-    public class Configs 
+    public class tbConfigs 
     {
         public int ID { get; set; }
 

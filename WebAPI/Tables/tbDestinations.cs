@@ -3,13 +3,13 @@
 namespace WebAPI.Tables
 {
     [Table("Destinations")]
-    public class Destinations
+    public class tbDestinations
     {
         public int ID { get; set; }
         public int ConfigID { get; set; }
         public string DestinationPath { get; set; }
 
         [ForeignKey("ConfigID")]
-        public virtual Configs Configs { get; set; }
+        public virtual tbConfigs Configs { get; set; }
     }
 }

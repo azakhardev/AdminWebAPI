@@ -4,7 +4,7 @@ using System.Security.Policy;
 namespace WebAPI.Tables
 {
     [Table("Snapshots")]
-    public class Snapshots
+    public class tbSnapshots
     {
         public int ID { get; set; }
 
@@ -19,6 +19,6 @@ namespace WebAPI.Tables
         public int Size { get; set; }
 
         [ForeignKey ("ConfigID")]
-        public virtual Configs Configs { get; set; }
+        public virtual tbConfigs Configs { get; set; }
     }
 }

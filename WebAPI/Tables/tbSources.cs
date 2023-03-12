@@ -3,7 +3,7 @@
 namespace WebAPI.Tables
 {
     [Table("Sources")]
-    public class Sources
+    public class tbSources
     {
         public int ID { get; set; }
 
@@ -18,6 +18,6 @@ namespace WebAPI.Tables
         public DateTime UpdateDate { get; set;}
 
         [ForeignKey("ConfigsID")]
-        public virtual Configs Configs { get; set; }
+        public virtual tbConfigs Configs { get; set; }
     }
 }
