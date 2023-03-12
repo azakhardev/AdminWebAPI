@@ -8,6 +8,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class Admins : ControllerBase
     {
+        BackupDatabase bd = new BackupDatabase();   
+
         // GET: api/<Admins>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -26,6 +28,9 @@ namespace WebAPI.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            Tables.Admins admin = new Tables.Admins() {Username = "Karel",  Password = "123456", Description = "xxx",Email= "karel@mail.com", Active = true,};
+            bd.Add(admin);
+            bd.SaveChanges();
         }
 
         // PUT api/<Admins>/5
