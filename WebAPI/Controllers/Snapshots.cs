@@ -6,7 +6,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Snapshot : ControllerBase
+    public class Snapshots : ControllerBase
     {
         // GET: api/<Snapshot>
         [HttpGet]
