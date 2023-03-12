@@ -14,6 +14,10 @@ namespace WebAPI.Tables
 
         public string Algorithm { get; set; }
 
+        public int MaxPackageAmount { get; set; }
+
+        public int MaxPackageSize { get; set; }
+
         public string Schedule { get; set; }
 
         public bool Zip { get; set; }

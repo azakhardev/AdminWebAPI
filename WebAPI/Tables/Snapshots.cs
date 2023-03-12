@@ -10,13 +10,13 @@ namespace WebAPI.Tables
 
         public int ConfigID { get; set; }
 
+        public string Path { get; set; }
+
+        public DateTime LastUpdate { get; set; }
+
         public int SnapshotVersion { get; set; }
 
         public int Size { get; set; }
-
-        public int MaxPackageAmount { get; set; }
-
-        public int MaxPackageSize { get; set; }
 
         [ForeignKey ("ConfigID")]
         public virtual Configs Configs { get; set; }
