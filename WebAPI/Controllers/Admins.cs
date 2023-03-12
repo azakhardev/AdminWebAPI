@@ -35,9 +35,9 @@ namespace WebAPI.Controllers
 
         // POST api/<Admins>
         [HttpPost]
-        public void Post([FromBody] Tables.tbAdmins value)
+        public void Post([FromBody] string value)
         {
-            dbBackup.Admins.Add(value);
+            dbBackup.Admins.Add(value.);
             dbBackup.SaveChanges();
         }
 
