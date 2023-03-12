@@ -2,7 +2,7 @@
 
 namespace WebAPI
 {
-    public class DatabaseConnection : DbContext
+    public class BackupDatabase : DbContext
 
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
