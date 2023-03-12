@@ -37,7 +37,12 @@ namespace WebAPI.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-            dbBackup.Admins.Add(value.);
+            //admin = new Tables.tbAdmins() { ID = 1, Username = "WTF", Password = "123456", Email = "wtf@nejde.to", Description = "rawr", Active = true };
+            //dbBackup.Admins.Add(admin);
+            //dbBackup.SaveChanges();
+
+            //return admin;
+            dbBackup.Admins.Add(value);
             dbBackup.SaveChanges();
         }
 
