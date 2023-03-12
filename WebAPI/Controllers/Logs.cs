@@ -6,35 +6,35 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WebAPIContr : ControllerBase
+    public class Logs : ControllerBase
     {
-        // GET: api/<WebAPIContr>
+        // GET: api/<Logs>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<WebAPIContr>/5
+        // GET api/<Logs>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<WebAPIContr>
+        // POST api/<Logs>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<WebAPIContr>/5
+        // PUT api/<Logs>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<WebAPIContr>/5
+        // DELETE api/<Logs>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

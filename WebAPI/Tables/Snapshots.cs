@@ -3,8 +3,8 @@ using System.Security.Policy;
 
 namespace WebAPI.Tables
 {
-    [Table("Snapshot")]
-    public class Snapshot
+    [Table("Snapshots")]
+    public class Snapshots
     {
         public int ID { get; set; }
 

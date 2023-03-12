@@ -2,8 +2,8 @@
 
 namespace WebAPI.Tables
 {
-    [Table("Source")]
-    public class Source
+    [Table("Sources")]
+    public class Sources
     {
         public int ID { get; set; }
 

@@ -2,8 +2,8 @@
 
 namespace WebAPI.Tables
 {
-    [Table("Destination")]
-    public class Destination
+    [Table("Destinations")]
+    public class Destinations
     {
         public int ID { get; set; }
         public int ConfigID { get; set; }
