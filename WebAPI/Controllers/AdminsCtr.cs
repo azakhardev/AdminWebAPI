@@ -7,9 +7,9 @@ using WebAPI.Tables;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Admins")]
     [ApiController]
-    public class Admins : ControllerBase
+    public class AdminsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();   
         

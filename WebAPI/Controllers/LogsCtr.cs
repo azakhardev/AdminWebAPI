@@ -4,7 +4,7 @@
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Logs")]
     [ApiController]
     public class LogsCtr : ControllerBase
     {

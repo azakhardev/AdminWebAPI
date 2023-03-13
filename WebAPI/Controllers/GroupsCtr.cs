@@ -4,7 +4,7 @@
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Groups")]
     [ApiController]
     public class GroupsCtr : ControllerBase
     {

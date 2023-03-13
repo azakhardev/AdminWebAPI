@@ -4,7 +4,7 @@
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Configs")]
     [ApiController]
     public class ConfigsCtr : ControllerBase
     {

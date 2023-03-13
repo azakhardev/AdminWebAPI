@@ -4,7 +4,7 @@
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Destinations")]
     [ApiController]
     public class DestinationsCtr : ControllerBase
     {

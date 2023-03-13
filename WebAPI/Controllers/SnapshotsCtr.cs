@@ -4,7 +4,7 @@
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Snapshots")]
     [ApiController]
     public class SnapshotsCtr : ControllerBase
     {
