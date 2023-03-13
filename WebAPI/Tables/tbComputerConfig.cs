@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.Tables
 {
+    [Keyless]
     [Table("ComputerConfig")]
     public class tbComputerConfig
     {

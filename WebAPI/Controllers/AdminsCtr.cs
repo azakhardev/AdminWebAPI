@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Mysqlx.Crud;
 using System.Collections.Generic;
+using System.Globalization;
 using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,47 +17,46 @@ namespace WebAPI.Controllers
         
         // GET: api/<Admins>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<tbAdmins> Get()
         {
-            List<Tables.tbAdmins> Foo = dbBackup.Admins.FromSqlRaw("SELECT Username FROM Admins WHERE ID >= {0}",1).ToList();
-            string[] administrators = new string[] { };
-            foreach (Tables.tbAdmins admin in Foo) 
-            {
-                administrators = administrators.Append(admin.Username).ToArray();
-            }
-            return administrators;
+            return dbBackup.Admins;            
         }
 
         // GET api/<Admins>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public tbAdmins Get(int id)
         {
-            return dbBackup.Admins.FromSqlRaw("SELECT * FROM Admins WHERE ID = {0}", id).ToString();
+            return dbBackup.Admins.Find(id);
         }
 
         // POST api/<Admins>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(string username, string password, string email, string description, bool active)
         {
-            //admin = new Tables.tbAdmins() { ID = 1, Username = "WTF", Password = "123456", Email = "wtf@nejde.to", Description = "rawr", Active = true };
-            //dbBackup.Admins.Add(admin);
-            //dbBackup.SaveChanges();
-
-            //return admin;
-            //dbBackup.Admins.Add(value);
+            dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password, Email = email, Description = description,Active = active });
             dbBackup.SaveChanges();
         }
 
         // PUT api/<Admins>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, string newUsername, string newPassword, string newEmail, string newDescription, bool newActive)
         {
+            tbAdmins updatedAdmin = dbBackup.Admins.Find(id);
+            updatedAdmin.Username = newUsername; 
+            updatedAdmin.Password = newPassword; 
+            updatedAdmin.Email = newEmail; 
+            updatedAdmin.Description = newDescription; 
+            updatedAdmin.Active = newActive;
+            
+            dbBackup.SaveChanges();
         }
 
         // DELETE api/<Admins>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            dbBackup.Admins.Remove(dbBackup.Admins.Find(id));
+            dbBackup.SaveChanges();
         }
     }
 }
