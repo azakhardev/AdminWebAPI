@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +9,44 @@ namespace WebAPI.Controllers
     [ApiController]
     public class GroupsCtr : ControllerBase
     {
+        BackupDatabase dbBackup = new BackupDatabase();
         // GET: api/<Groups>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<tbGroups> Get()
         {
-            return new string[] { "value1", "value2" };
+            return dbBackup.Groups;
         }
 
         // GET api/<Groups>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public tbGroups Get(int id)
         {
-            return "value";
+            return dbBackup.Groups.Find(id);
         }
 
         // POST api/<Groups>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(string groupName, int computersId, string description)
         {
+            dbBackup.Groups.Add(new tbGroups() {GroupName = groupName, Computers = dbBackup.Computers.Find(computersId), Description = description});
         }
 
         // PUT api/<Groups>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, string newGroupName, int newComputersId, string newDescription)
         {
+            tbGroups updatedGroup = dbBackup.Groups.Find(id);
+
+            updatedGroup.GroupName = newGroupName;
+            updatedGroup.Computers = dbBackup.Computers.Find(newComputersId);
+            updatedGroup.Description = newDescription;
         }
 
         // DELETE api/<Groups>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            dbBackup.Groups.Remove(dbBackup.Groups.Find(id));
         }
     }
 }

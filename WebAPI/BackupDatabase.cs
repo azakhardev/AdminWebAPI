@@ -28,6 +28,8 @@ namespace WebAPI
 
         public DbSet<tbSources> Sources { get; set; }
 
+        BackupDatabase dbBackup = new BackupDatabase();
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=mysqlstudenti.litv.sssvt.cz;database=3b2_zakharchenkoartem_db2;user=zakharchenkoarte;password=123456;SslMode=none");
