@@ -31,19 +31,20 @@ namespace WebAPI.Controllers
 
         // POST api/<Admins>
         [HttpPost]
-        public void Post(string username, string password, string email, string description, bool active)
+        public void Post(string username, string password, string schedule, string email, string description, bool active)
         {
-            dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password, Email = email, Description = description,Active = active });
+            dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password,Schedule = schedule, Email = email, Description = description,Active = active });
             dbBackup.SaveChanges();
         }
 
         // PUT api/<Admins>/5
         [HttpPut("{id}")]
-        public void Put(int id, string newUsername, string newPassword, string newEmail, string newDescription, bool newActive)
+        public void Put(int id, string newUsername, string newPassword, string newSchedule, string newEmail, string newDescription, bool newActive)
         {
             tbAdmins updatedAdmin = dbBackup.Admins.Find(id);
             updatedAdmin.Username = newUsername; 
             updatedAdmin.Password = newPassword; 
+            updatedAdmin.Schedule = newSchedule;
             updatedAdmin.Email = newEmail; 
             updatedAdmin.Description = newDescription; 
             updatedAdmin.Active = newActive;
