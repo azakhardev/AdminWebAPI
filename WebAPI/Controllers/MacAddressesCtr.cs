@@ -4,37 +4,37 @@
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/MacAddresses")]
     [ApiController]
-    public class Snapshots : ControllerBase
+    public class MacAddressesCtr : ControllerBase
     {
-        // GET: api/<Snapshot>
+        // GET: api/<MacAdresses>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<Snapshot>/5
+        // GET api/<MacAdresses>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<Snapshot>
+        // POST api/<MacAdresses>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<Snapshot>/5
+        // PUT api/<MacAdresses>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<Snapshot>/5
+        // DELETE api/<MacAdresses>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

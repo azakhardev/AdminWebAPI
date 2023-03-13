@@ -6,7 +6,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Logs : ControllerBase
+    public class LogsCtr : ControllerBase
     {
         // GET: api/<Logs>
         [HttpGet]

@@ -4,37 +4,37 @@
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Sources")]
     [ApiController]
-    public class Destinations : ControllerBase
+    public class SourcesCtr : ControllerBase
     {
-        // GET: api/<Destinations>
+        // GET: api/<Source>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<Destinations>/5
+        // GET api/<Source>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<Destinations>
+        // POST api/<Source>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<Destinations>/5
+        // PUT api/<Source>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<Destinations>/5
+        // DELETE api/<Source>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

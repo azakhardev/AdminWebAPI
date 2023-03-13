@@ -6,35 +6,35 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Groups : ControllerBase
+    public class SnapshotsCtr : ControllerBase
     {
-        // GET: api/<Groups>
+        // GET: api/<Snapshot>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<Groups>/5
+        // GET api/<Snapshot>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<Groups>
+        // POST api/<Snapshot>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<Groups>/5
+        // PUT api/<Snapshot>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<Groups>/5
+        // DELETE api/<Snapshot>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

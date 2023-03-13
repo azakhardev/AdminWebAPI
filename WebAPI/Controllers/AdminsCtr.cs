@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
             //dbBackup.SaveChanges();
 
             //return admin;
-            dbBackup.Admins.Add(value);
+            //dbBackup.Admins.Add(value);
             dbBackup.SaveChanges();
         }
 
