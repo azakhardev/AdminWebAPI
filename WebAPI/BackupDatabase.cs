@@ -30,7 +30,7 @@ namespace WebAPI
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=mysqlstudenti.litv.sssvt.cz;database=3b2_zakharchenkoartem_db1;user=zakharchenkoarte;password=123456;SslMode=none");
+            optionsBuilder.UseMySQL("server=mysqlstudenti.litv.sssvt.cz;database=3b2_zakharchenkoartem_db2;user=zakharchenkoarte;password=123456;SslMode=none");
         }
 
     }
