@@ -24,8 +24,6 @@ namespace WebAPI
 
         public DbSet<tbMacAddresses> MacAdresses { get; set; }
 
-        public DbSet<tbSnapshots> Snapshots { get; set; }
-
         public DbSet<tbSources> Sources { get; set; }
 
         //BackupDatabase dbBackup = new BackupDatabase();
