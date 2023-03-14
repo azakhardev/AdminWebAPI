@@ -10,6 +10,6 @@ namespace WebAPI.Tables
         public string MacAdress { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual tbComputers Computers { get; set; }
+        public virtual tbComputers Computer { get; set; }
     }
 }
