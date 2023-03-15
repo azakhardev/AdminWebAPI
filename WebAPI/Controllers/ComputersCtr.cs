@@ -29,33 +29,37 @@ namespace WebAPI.Controllers
 
         // POST api/<Computers>
         [HttpPost]
-        public void Post(string computerName, string backupStatus, string computerStatus, string description, DateTime lastBackup)
+        public tbComputers Post([FromBody] tbComputers computer)
         {
-            dbBackup.Computers.Add(new tbComputers()
-            {
-                ComputerName = computerName,
-                BackupStatus = backupStatus,
-                ComputerStatus = computerStatus,
-                Description = description,
-                LastBackup = lastBackup
-            });
-
+            //string computerName, string backupStatus, string computerStatus, string description, DateTime lastBackup
+            //dbBackup.Computers.Add(new tbComputers()
+            //{
+            //    ComputerName = computerName,
+            //    BackupStatus = backupStatus,
+            //    ComputerStatus = computerStatus,
+            //    Description = description,
+            //    LastBackup = lastBackup
+            //});
+            dbBackup.Computers.Add(computer);
             dbBackup.SaveChanges();
+
+            return computer;
         }
 
         // PUT api/<Computers>/5
         [HttpPut("{id}")]
-        public void Put(int id, string newComputerName, string newBackupStatus, string newComputerStatus, string newDescription)
+        public void Put(int id, [FromBody] tbComputers computer)
         {
             // = dbBackup.Computers.Find(id).ComputerName
-            tbComputers updatedComputer = dbBackup.Computers.Find(id);
+            //string newComputerName, string newBackupStatus, string newComputerStatus, string newDescription
+            tbComputers updatedComputer = this.dbBackup.Computers.Find(id);
 
-            updatedComputer.ComputerName = newComputerName;
-            updatedComputer.BackupStatus = newBackupStatus;
-            updatedComputer.ComputerStatus = newComputerStatus;
-            updatedComputer.Description = newDescription;
-            //updatedComputer.LastBackup = newLastBackup;
-
+            updatedComputer.ComputerName = computer.ComputerName;
+            updatedComputer.BackupStatus = computer.BackupStatus;
+            updatedComputer.ComputerStatus = computer.ComputerStatus;
+            updatedComputer.Description = computer.Description;
+            updatedComputer.LastBackup = computer.LastBackup;
+            
             dbBackup.SaveChanges();
         }
 
