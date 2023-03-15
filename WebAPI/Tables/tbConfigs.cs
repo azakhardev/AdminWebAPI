@@ -21,5 +21,17 @@ namespace WebAPI.Tables
         public string Schedule { get; set; }
 
         public bool Zip { get; set; }
+
+        [ForeignKey("ConfigID")]
+        public virtual List<tbComputersConfigs> ComputersConfigs { get; set; }
+
+        [ForeignKey("ConfigID")]
+        public virtual List<tbGroupsConfigs> GroupsConfigs { get; set; }
+
+        [ForeignKey("ConfigID")]
+        public virtual List<tbSources> Sources { get; set; }
+
+        [ForeignKey("ConfigID")]
+        public virtual List<tbDestinations> Destinations { get; set; }
     }
 }

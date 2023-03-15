@@ -11,5 +11,8 @@ namespace WebAPI.Tables
 
         [ForeignKey("ComputerID")]
         public virtual tbComputers Computers { get; set; }
+
+        [ForeignKey("GroupID")]
+        public virtual List<tbGroupsConfigs> GroupsConfigs { get; set; }
     }
 }
