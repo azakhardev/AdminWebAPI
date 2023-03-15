@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebAPI.Tables
 {
     [Keyless]
-    [Table("ComputerConfig")]
-    public class tbComputerConfigs
+    [Table("ComputersConfigs")]
+    public class tbComputersConfigs
     {
         public int ComputerID { get; set; }
         public int ConfigID { get; set; }

@@ -17,7 +17,7 @@ namespace WebAPI.Tables
         public virtual List<tbMacAddresses> MacAddresses { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual List<tbComputersConfigs> ComputerConfigs { get; set; }
+        public virtual List<tbComputersConfigs> ComputersConfigs { get; set; }
 
         [ForeignKey("ComputerID")]
         public virtual List<tbGroups> Groups{ get; set; }
