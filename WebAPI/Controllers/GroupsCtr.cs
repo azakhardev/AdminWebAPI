@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
             if (Regex.IsMatch(group.GroupName, @"[^/\\*?\"":<>|]+$") == true)
                 updatedGroup.GroupName = group.GroupName;
             if (dbBackup.Computers.Find(group.ComputerID) != null)
-                updatedGroup.Computers = group.Computers;
+                updatedGroup.ComputerID = group.ComputerID;
             updatedGroup.Description = group.Description;
 
             dbBackup.SaveChanges();

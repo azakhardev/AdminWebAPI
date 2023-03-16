@@ -9,7 +9,7 @@ namespace WebAPI.Tables
         public int ComputerID { get; set; }
         public string MacAdress { get; set; }
 
-        [ForeignKey("ID")]
-        public virtual tbComputers Computer { get; set; }
+        //[ForeignKey("ID")]
+        //public virtual tbComputers Computer { get; set; }
     }
 }
