@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Mysqlx.Crud;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,13 +14,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AdminsCtr : ControllerBase
     {
-        BackupDatabase dbBackup = new BackupDatabase();   
-        
+        BackupDatabase dbBackup = new BackupDatabase();
+
         // GET: api/<Admins>
         [HttpGet]
         public IEnumerable<tbAdmins> Get()
         {
-            return dbBackup.Admins;            
+            return dbBackup.Admins;
         }
 
         // GET api/<Admins>/5
@@ -35,7 +36,11 @@ namespace WebAPI.Controllers
         {
             //string username, string password, string schedule, string email, string description, bool active
             //dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password,Schedule = schedule, Email = email, Description = description,Active = active });
-            dbBackup.Admins.Add(admin);
+            if (Regex.IsMatch(admin.Username, @"[A-Za-z0-9_]{3,50}$"))
+                if (Regex.IsMatch(admin.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,50}$"))
+                    if (Regex.IsMatch(admin.Schedule, @""))
+                        if (Regex.IsMatch(admin.Email, @"@"))
+                            dbBackup.Admins.Add(admin);
             dbBackup.SaveChanges();
 
             return admin;
@@ -47,13 +52,18 @@ namespace WebAPI.Controllers
         {
             // string newUsername, string newPassword, string newSchedule, string newEmail, string newDescription, bool newActive
             tbAdmins updatedAdmin = this.dbBackup.Admins.Find(id);
-            updatedAdmin.Username = admin.Username; 
-            updatedAdmin.Password = admin.Password; 
+
+            if (Regex.IsMatch(admin.Username, @"[A-Za-z0-9_]{3,50}$"))
+                updatedAdmin.Username = admin.Username;
+            if (Regex.IsMatch(admin.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
+                updatedAdmin.Password = admin.Password;
+            if (Regex.IsMatch(admin.Schedule,@""))
             updatedAdmin.Schedule = admin.Schedule;
-            updatedAdmin.Email = admin.Email; 
-            updatedAdmin.Description = admin.Description; 
+            if (Regex.IsMatch(admin.Email, @"@?"))
+                updatedAdmin.Email = admin.Email;
+            updatedAdmin.Description = admin.Description;
             updatedAdmin.Active = admin.Active;
-            
+
             this.dbBackup.SaveChanges();
         }
 

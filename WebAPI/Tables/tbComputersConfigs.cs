@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.Tables
 {
-    [Keyless]
+    
     [Table("ComputersConfigs")]
     public class tbComputersConfigs
     {
+        public int ID { get; set; }
         public int ComputerID { get; set; }
         public int ConfigID { get; set; }
         public string Snapshot { get; set; }
@@ -14,7 +15,7 @@ namespace WebAPI.Tables
         [ForeignKey("ComputerID")]
         public virtual tbComputers Computers { get; set; }
 
-        [ForeignKey("ConfigID")]
+        [ForeignKey("ComputerID")]
         public virtual tbConfigs Configs { get; set; }
 
         [ForeignKey("ComputerID")]

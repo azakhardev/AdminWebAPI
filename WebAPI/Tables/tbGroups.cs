@@ -9,7 +9,7 @@ namespace WebAPI.Tables
         public string GroupName { get; set; }
         public string Description { get; set; }
 
-        [ForeignKey("ComputerID")]
+        [ForeignKey("ID")]
         public virtual tbComputers Computers { get; set; }
 
         [ForeignKey("GroupID")]

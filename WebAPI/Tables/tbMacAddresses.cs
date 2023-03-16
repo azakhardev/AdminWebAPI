@@ -2,14 +2,14 @@
 
 namespace WebAPI.Tables
 {
-    [Table("MacAdresses")]
+    [Table("MacAddresses")]
     public class tbMacAddresses
     {
         public int ID { get; set; }
         public int ComputerID { get; set; }
         public string MacAdress { get; set; }
 
-        [ForeignKey("ComputerID")]
+        [ForeignKey("ID")]
         public virtual tbComputers Computer { get; set; }
     }
 }

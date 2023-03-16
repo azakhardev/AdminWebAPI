@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Mysqlx.Crud;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using WebAPI.Tables;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,6 +32,8 @@ namespace WebAPI.Controllers
         [HttpPost]
         public tbComputers Post([FromBody] tbComputers computer)
         {
+            if (Regex.IsMatch(computer.ComputerName, @"[A-Za-z0-9_]{3,50}$"))
+                
             //string computerName, string backupStatus, string computerStatus, string description, DateTime lastBackup
             //dbBackup.Computers.Add(new tbComputers()
             //{

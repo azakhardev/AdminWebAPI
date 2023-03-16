@@ -29,18 +29,6 @@ namespace WebAPI.Controllers
         [HttpPost]
         public tbConfigs Post([FromBody] tbConfigs config)
         {
-            //string configName, DateTime creationDate, string algorithm, int maxPackageAmount, int maxPackageSize, string schedule, bool zip
-            //tbConfigs newConfig = new tbConfigs()
-            //{
-            //    ConfigName = configName,
-            //    CreationDate = creationDate,
-            //    Algorithm = algorithm,
-            //    MaxPackageAmount = maxPackageAmount,
-            //    MaxPackageSize = maxPackageSize,
-            //    Schedule = schedule,
-            //    Zip = zip
-            //};
-
             dbBackup.Configs.Add(config);
             dbBackup.SaveChanges();
 

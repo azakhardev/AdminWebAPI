@@ -7,6 +7,8 @@ namespace WebAPI.Tables
     [Table("GroupsConfigs")]
     public class tbGroupsConfigs
     {
+        public int ID { get; set; }
+
         public int GroupID { get; set; }
 
         public int ConfigID { get; set; }

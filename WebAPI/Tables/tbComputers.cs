@@ -12,7 +12,6 @@ namespace WebAPI.Tables
         public DateTime LastBackup { get; set; }
         public string BackupStatus { get; set; }
 
-        //list -  pro tabulky co navazuji na tu tabulku
         [ForeignKey("ComputerID")]
         public virtual List<tbMacAddresses> MacAddresses { get; set; }
 
@@ -21,6 +20,5 @@ namespace WebAPI.Tables
 
         [ForeignKey("ComputerID")]
         public virtual List<tbGroups> Groups{ get; set; }
-
     }
 }
