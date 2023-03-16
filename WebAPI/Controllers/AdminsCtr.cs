@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Mysqlx.Crud;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Text.RegularExpressions;
+using WebAPI.FormatCheck;
 using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,6 +17,7 @@ namespace WebAPI.Controllers
     public class AdminsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
+        AdminCheck checkAdmin = new AdminCheck();
 
         // GET: api/<Admins>
         [HttpGet]
@@ -32,18 +35,22 @@ namespace WebAPI.Controllers
 
         // POST api/<Admins>
         [HttpPost]
-        public tbAdmins Post([FromBody] tbAdmins admin)
+        public IActionResult Post([FromBody] tbAdmins admin)
         {
             //string username, string password, string schedule, string email, string description, bool active
             //dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password,Schedule = schedule, Email = email, Description = description,Active = active });
-            if (Regex.IsMatch(admin.Username, @"[A-Za-z0-9_]{3,50}$"))
-                if (Regex.IsMatch(admin.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,50}$"))
-                    if (Regex.IsMatch(admin.Schedule, @""))
-                        if (Regex.IsMatch(admin.Email, @"@"))
-                            dbBackup.Admins.Add(admin);
+            try
+            {
+                checkAdmin.CheckAll(admin);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+            
+            dbBackup.Admins.Add(admin);
             dbBackup.SaveChanges();
-
-            return admin;
+                    
         }
 
         // PUT api/<Admins>/5
