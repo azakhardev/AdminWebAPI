@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.Tables
 {
-    [Keyless]
+    
     [Table("GroupsConfigs")]
     public class tbGroupsConfigs
     {

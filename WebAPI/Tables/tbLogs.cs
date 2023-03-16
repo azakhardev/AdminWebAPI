@@ -7,9 +7,7 @@ namespace WebAPI.Tables
     {
         public int ID { get; set; }
 
-        public int ComputerID { get; set; }
-
-        public int ConfigID { get; set; }
+        public int ComputersConfigsID { get; set; }
 
         public DateTime Date { get; set; }
 
