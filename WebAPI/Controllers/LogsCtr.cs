@@ -26,21 +26,26 @@ namespace WebAPI.Controllers
 
         // POST api/<Logs>
         [HttpPost]
-        public void Post(DateTime date, bool error, string message)
+        public tbLogs Post([FromBody] tbLogs log)
         {
-            dbBackup.Logs.Add(new tbLogs() {Date = date, Errors = error, Message = message});
+            //DateTime date, bool error, string message
+            //dbBackup.Logs.Add(new tbLogs() {Date = date, Errors = error, Message = message});
+            dbBackup.Logs.Add(log);
             dbBackup.SaveChanges();
+
+            return log;
         }
 
         // PUT api/<Logs>/5
         [HttpPut("{id}")]
-        public void Put(int id, DateTime newDate, bool newError, string newMessage)
+        public void Put(int id, [FromBody] tbLogs log)
         {
-            tbLogs updatedLog = dbBackup.Logs.Find(id);
+            //DateTime newDate, bool newError, string newMessage
+            tbLogs updatedLog = this.dbBackup.Logs.Find(id);
 
-            updatedLog.Date = newDate;
-            updatedLog.Errors = newError;
-            updatedLog.Message = newMessage;
+            updatedLog.Date = log.Date;
+            updatedLog.Errors = log.Errors;
+            updatedLog.Message = log.Message;
 
             dbBackup.SaveChanges();
         }

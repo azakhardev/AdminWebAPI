@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,6 +11,7 @@ namespace WebAPI.Controllers
     public class GroupsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
+
         // GET: api/<Groups>
         [HttpGet]
         public IEnumerable<tbGroups> Get()
@@ -26,20 +28,31 @@ namespace WebAPI.Controllers
 
         // POST api/<Groups>
         [HttpPost]
-        public void Post(string groupName, int computersId, string description)
+        public tbGroups Post([FromBody] tbGroups group)
         {
-            dbBackup.Groups.Add(new tbGroups() {GroupName = groupName, Computers = dbBackup.Computers.Find(computersId), Description = description});
+            if (Regex.IsMatch(group.GroupName, @"[^/\\*?\"":<>|]+$") == true)
+                //string groupName, int computersId, string description
+                //dbBackup.Groups.Add(new tbGroups() {GroupName = groupName, Computers = dbBackup.Computers.Find(computersId), Description = description});
+                dbBackup.Groups.Add(group);
+            dbBackup.SaveChanges();
+
+            return group;
         }
 
         // PUT api/<Groups>/5
         [HttpPut("{id}")]
-        public void Put(int id, string newGroupName, int newComputersId, string newDescription)
+        public void Put(int id, [FromBody] tbGroups group)
         {
-            tbGroups updatedGroup = dbBackup.Groups.Find(id);
+            //string newGroupName, int newComputersId, string newDescription
+            tbGroups updatedGroup = this.dbBackup.Groups.Find(id);
 
-            updatedGroup.GroupName = newGroupName;
-            updatedGroup.Computers = dbBackup.Computers.Find(newComputersId);
-            updatedGroup.Description = newDescription;
+            if (Regex.IsMatch(group.GroupName, @"[^/\\*?\"":<>|]+$") == true)
+                updatedGroup.GroupName = group.GroupName;
+            if (dbBackup.Computers.Find(group.ComputerID) != null)
+                updatedGroup.Computers = group.Computers;
+            updatedGroup.Description = group.Description;
+
+            dbBackup.SaveChanges();
         }
 
         // DELETE api/<Groups>/5

@@ -27,36 +27,40 @@ namespace WebAPI.Controllers
 
         // POST api/<Configs>
         [HttpPost]
-        public void Post(string configName, DateTime creationDate, string algorithm, int maxPackageAmount, int maxPackageSize, string schedule, bool zip)
+        public tbConfigs Post([FromBody] tbConfigs config)
         {
-            tbConfigs newConfig = new tbConfigs()
-            {
-                ConfigName = configName,
-                CreationDate = creationDate,
-                Algorithm = algorithm,
-                MaxPackageAmount = maxPackageAmount,
-                MaxPackageSize = maxPackageSize,
-                Schedule = schedule,
-                Zip = zip
-            };
+            //string configName, DateTime creationDate, string algorithm, int maxPackageAmount, int maxPackageSize, string schedule, bool zip
+            //tbConfigs newConfig = new tbConfigs()
+            //{
+            //    ConfigName = configName,
+            //    CreationDate = creationDate,
+            //    Algorithm = algorithm,
+            //    MaxPackageAmount = maxPackageAmount,
+            //    MaxPackageSize = maxPackageSize,
+            //    Schedule = schedule,
+            //    Zip = zip
+            //};
 
-            dbBackup.Configs.Add(newConfig);
+            dbBackup.Configs.Add(config);
             dbBackup.SaveChanges();
+
+            return config;
         }
 
         // PUT api/<Configs>/5
         [HttpPut("{id}")]
-        public void Put(int id, string newConfigName, DateTime newCreationDate, string newAlgorithm, int newMaxPackageAmount, int newMaxPackageSize, string newSchedule, bool newZip)
+        public void Put(int id, [FromBody] tbConfigs config)
         {
+            //string newConfigName, DateTime newCreationDate, string newAlgorithm, int newMaxPackageAmount, int newMaxPackageSize, string newSchedule, bool newZip
             tbConfigs updatedConfig = dbBackup.Configs.Find(id);
 
-            updatedConfig.ConfigName = newConfigName;
-            updatedConfig.CreationDate = newCreationDate;
-            updatedConfig.Algorithm = newAlgorithm;
-            updatedConfig.MaxPackageAmount = newMaxPackageAmount;
-            updatedConfig.MaxPackageSize = newMaxPackageSize;
-            updatedConfig.Schedule = newSchedule;
-            updatedConfig.Zip = newZip;
+            updatedConfig.ConfigName = config.ConfigName;
+            updatedConfig.CreationDate = config.CreationDate;
+            updatedConfig.Algorithm = config.Algorithm;
+            updatedConfig.MaxPackageAmount = config.MaxPackageAmount;
+            updatedConfig.MaxPackageSize = config.MaxPackageSize;
+            updatedConfig.Schedule = config.Schedule;
+            updatedConfig.Zip = config.Zip;
 
             dbBackup.SaveChanges();
         }
