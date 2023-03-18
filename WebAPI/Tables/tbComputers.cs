@@ -23,9 +23,9 @@ namespace WebAPI.Tables
         [ForeignKey("ComputerID")]
         public virtual List<tbGroups> Groups { get; set; }
 
-        public List<string> GetMacAddresses(tbComputers computer, BackupDatabase dbBackup) 
+        public List<string> GetMacAddresses(int id, BackupDatabase dbBackup) 
         {
-            List<tbMacAddresses> tbMacAddresses = dbBackup.MacAdresses.Where(x => x.ComputerID == computer.ID).ToList();
+            List<tbMacAddresses> tbMacAddresses = dbBackup.MacAdresses.Where(x => x.ComputerID == id).ToList();
             List<string> macAddresses = new List<string>();
 
             foreach (var item in tbMacAddresses)
@@ -36,10 +36,29 @@ namespace WebAPI.Tables
             return macAddresses;
         }
 
-        public List<int> GetConfigs(tbComputers computer, BackupDatabase dbBakcup)
+        public List<string> GetConfigs(int id, BackupDatabase dbBakcup)
         {
-            List <tbMacAddresses> macAddresses = dbBakcup.ComputersConfigs.Where(x => x.ID == computer.ComputersConfigs).Single();
-            foreach (var config in MacAddresses) { }
+            List <tbComputersConfigs> tbComputersConfigs = dbBakcup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
+            List <string> configs = new List<string>();
+
+            foreach (tbComputersConfigs config in tbComputersConfigs) 
+            {
+                configs.Add($"Config ID: {id}, Config Name: {dbBakcup.Configs.Where(x => x.ID == id).FirstOrDefault().ConfigName}");
+            }
+
+            return configs;
+        }
+
+        public List<string> GetGroups(int id, BackupDatabase dbBackup) 
+        {
+            List<tbGroups> tbGroups = dbBackup.Groups.Where(x => x.ComputerID == id).ToList();
+            List<string> groups = new List<string>();
+
+            foreach (tbGroups group in tbGroups) 
+            {
+                groups.Add(group.GroupName);
+            }
+            return groups;
         }
     }
 }

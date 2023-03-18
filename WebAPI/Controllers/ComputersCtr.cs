@@ -32,26 +32,26 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.Groups).Include(x => x.MacAddresses).Where(x => x.ID == id).FirstOrDefault();
         }
 
-        ////GET api/<Computers>/5/<Configs>
-        //[HttpGet("{id}/Configs")]
-        //public tbComputers GetConfigs(int id)
-        //{
-        //    return dbBackup.Computers.Find(id);
-        //}
+        //GET api/<Computers>/5/<Configs>
+        [HttpGet("{id}/Configs")]
+        public List<string> GetConfigs(int id)
+        {
+            return dbBackup.Computers.Find(id).GetConfigs(id, dbBackup);
+        }
 
-        ////GET api/<Computers>/5/<Groups>
-        //[HttpGet("{id}/Groups")]
-        //public List<tbComputers> GetGroups(int id)
-        //{
-        //    return dbBackup.Computers.Include(x => x.Groups).ToList();
-        //}
+        //GET api/<Computers>/5/<Groups>
+        [HttpGet("{id}/Groups")]
+        public List<string> GetGroups(int id)
+        {
+            return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
+        }
 
-        ////GET api/<Computers>/5/<MacAdresses>
-        //[HttpGet("{id}/MacAddresses")]
-        //public List<tbComputers> GetMacAddresses(int id)
-        //{
-        //    return dbBackup.Computers.Include(x => x.MacAddresses).ToList();
-        //}
+        //GET api/<Computers>/5/<MacAdresses>
+        [HttpGet("{id}/MacAddresses")]
+        public List<string> GetMacAddresses(int id)
+        {
+            return dbBackup.Computers.Find(id).GetMacAddresses(id, dbBackup);
+        }
 
 
         // POST api/<Computers>
