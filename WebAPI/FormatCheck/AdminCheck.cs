@@ -14,26 +14,30 @@ namespace WebAPI.FormatCheck
         }
         public void UsernameCheck(string username)
         {
-            if (Regex.IsMatch(username, @"[A-Za-z0-9_]{3,50}$"))
-                throw new FormatException("Invalid username");
+            if (Regex.IsMatch(username, @"^[A-Za-z0-9_]{3,50}$"))
+                return;
+            throw new FormatException("Invalid username");
         }
 
         public void PasswordCheck(string password)
         {
-            if (Regex.IsMatch(password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,50}$"))
-                throw new FormatException("Invalid password");
+            if (Regex.IsMatch(password, @"^(?=.*[A-Za-z])(?=.*\d).{8,50}$"))
+                return;
+            throw new FormatException("Invalid password");
         }
 
         public void ScheduleCheck(string schedule)
         {
             if (Regex.IsMatch(schedule, @""))
-                throw new FormatException("Invalid password");
+                return;
+            throw new FormatException("Invalid password");
         }
 
         public void EmailCheck(string email)
         {
             if (Regex.IsMatch(email, @"@"))
-                throw new FormatException("Invalid email");
+                return;
+            throw new FormatException("Invalid email");
         }
     }
 }

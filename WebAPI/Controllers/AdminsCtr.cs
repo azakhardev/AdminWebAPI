@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
 
         // PUT api/<Admins>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] tbAdmins admin)
+        public ActionResult<tbAdmins> Put(int id, [FromBody] tbAdmins admin)
         {
             // string newUsername, string newPassword, string newSchedule, string newEmail, string newDescription, bool newActive
             tbAdmins updatedAdmin = this.dbBackup.Admins.Find(id);
@@ -70,6 +70,7 @@ namespace WebAPI.Controllers
             updatedAdmin.Active = admin.Active;
 
             this.dbBackup.SaveChanges();
+            return updatedAdmin;
         }
 
         // DELETE api/<Admins>/5
