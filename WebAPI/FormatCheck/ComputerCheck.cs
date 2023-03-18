@@ -4,7 +4,7 @@ namespace WebAPI.FormatCheck
 {
     public class ComputerCheck
     {
-        public void ChechkALl(tbComputers computer) 
+        public void ChechkAll(tbComputers computer) 
         {
 
         }

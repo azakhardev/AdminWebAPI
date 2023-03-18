@@ -30,7 +30,7 @@ namespace WebAPI.FormatCheck
         {
             if (Regex.IsMatch(schedule, @""))
                 return;
-            throw new FormatException("Invalid password");
+            throw new FormatException("Invalid schedule");
         }
 
         public void EmailCheck(string email)
