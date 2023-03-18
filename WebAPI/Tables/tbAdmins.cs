@@ -12,5 +12,7 @@ namespace WebAPI.Tables
         public string Description { get; set; }
         public string Email { get; set; }
         public bool Active { get; set; }
+
+        
     }
 }

@@ -22,15 +22,14 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<tbComputers> Get()
         { 
-            return dbBackup.Computers;
+            return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.Groups).Include(x => x.MacAddresses);
         }
 
         // GET api/<Computers>/5
         [HttpGet("{id}")]
         public tbComputers Get(int id)
-        {
-            //dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.Groups).Include(x => x.MacAddresses).Where(x => x.ID == id).FirstOrDefault();
-            return dbBackup.Computers.Find(id);
+        {            
+            return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.Groups).Include(x => x.MacAddresses).Where(x => x.ID == id).FirstOrDefault();
         }
 
         //GET api/<Computers>/5/<Configs>

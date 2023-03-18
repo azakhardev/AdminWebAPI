@@ -12,13 +12,13 @@ namespace WebAPI.Tables
         public DateTime LastBackup { get; set; }
         public string BackupStatus { get; set; }
 
-        [ForeignKey("ID")]
+        [ForeignKey("ComputerID")]
         public virtual List<tbMacAddresses> MacAddresses { get; set; }
 
-        [ForeignKey("ID")]
+        [ForeignKey("ComputerID")]
         public virtual List<tbComputersConfigs> ComputersConfigs { get; set; }
 
-        [ForeignKey("ID")]
+        [ForeignKey("ComputerID")]
         public virtual List<tbGroups> Groups { get; set; }
     }
 }
