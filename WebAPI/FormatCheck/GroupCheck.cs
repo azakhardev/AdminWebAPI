@@ -1,20 +1,23 @@
-﻿namespace WebAPI.FormatCheck
+﻿using WebAPI.Tables;
+
+namespace WebAPI.FormatCheck
 {
     public class GroupCheck
     {
-        public void CheckAll()
+        public void CheckAll(tbGroups group)
         {
-            
+            GroupNameCheck(group);
+            ComputerIDCheck(group);
         }
 
-        public void GroupNameCheck(string groupName)
+        public void GroupNameCheck(tbGroups group)
         {
             if (true)
                 return;
             throw new FormatException("Invalid group name");
         }
 
-        public void ComputerIDCheck(string computerID)
+        public void ComputerIDCheck(tbGroups group)
         {
             if (true)
                 return;

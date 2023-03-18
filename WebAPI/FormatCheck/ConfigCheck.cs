@@ -1,47 +1,51 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using WebAPI.Tables;
 
 namespace WebAPI.FormatCheck
 {
     public class ConfigCheck
     {
-        public void CheckAll()
+        public void CheckAll(tbConfigs config)
         {
-
+            ConfigNameCheck(config);
+            AlgorithmCheck(config);
+            MaxPackageAmountCheck(config);
+            MaxPackageSizeCheck(config);
+            ScheduleCheck(config);
         }
 
-
-        public void ConfigNameCheck(string configName)
+        public void ConfigNameCheck(tbConfigs config)
         {
-            if (true)
+            if (Regex.IsMatch(config.ConfigName, @"^[A-Za-z0-9_]{3,50}$"))
                 return;
-            throw new FormatException("Invalid config name");
+            throw new FormatException("Invalid config name.");
         }
 
-
-        public void AlgorithmCheck(string algorithm)
+        public void AlgorithmCheck(tbConfigs config)
         {
-            if (true)
-               return;
-            throw new FormatException("Invalid algorithm");
-        }
-
-        public void MaxPackageAmountCheck(int maxPackageAmount)
-        {
-            if (true)            
+            if (Regex.IsMatch(config.Algorithm, @"^Full$|^Incremental$|^Differential$"))
                 return;
-            throw new FormatException("Invalid max package amount");
+            throw new FormatException("Invalid algorithm. Please selecet Full, Incremental or Differential algorithm.");
         }
 
-        public void MaxPackageSizeCheck(int maxPackageSize)
+        public void MaxPackageAmountCheck(tbConfigs config)
         {
-            if (true)
+            if (config.MaxPackageAmount <= 10)
                 return;
-            throw new FormatException("Invalid max package size");
+            throw new FormatException("Maximal package amount can't be greater than 10");
         }
 
-        public void ScheduleCheck(string schedule)
+        public void MaxPackageSizeCheck(tbConfigs config)
         {
-            if (true)
+            if (config.MaxPackageSize <= 10)
+                return;
+            throw new FormatException("Maximal package size can't be greater than 10");
+        }
+
+        public void ScheduleCheck(tbConfigs config)
+        {
+            if (Regex.IsMatch(config.Schedule, @""))
                 return;
             throw new FormatException("Invalid schedule");
         }

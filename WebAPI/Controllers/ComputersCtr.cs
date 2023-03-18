@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Mysqlx.Crud;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using WebAPI.FormatCheck;
@@ -28,8 +29,31 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public tbComputers Get(int id)
         {
+            //dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.Groups).Include(x => x.MacAddresses).Where(x => x.ID == id).FirstOrDefault();
             return dbBackup.Computers.Find(id);
         }
+
+        //GET api/<Computers>/5/<Configs>
+        [HttpGet("{id}/Configs")]
+        public tbComputers GetConfigs(int id)
+        {
+            return dbBackup.Computers.Find(id);
+        }
+
+        //GET api/<Computers>/5/<Groups>
+        [HttpGet("{id}/Groups")]
+        public List<tbComputers> GetGroups(int id)
+        {
+            return dbBackup.Computers.Include(x => x.Groups).ToList();
+        }
+
+        //GET api/<Computers>/5/<MacAdresses>
+        [HttpGet("{id}/MacAddresses")]
+        public List<tbComputers> GetMacAddresses(int id)
+        {
+            return dbBackup.Computers.Include(x => x.MacAddresses).ToList();
+        }
+
 
         // POST api/<Computers>
         [HttpPost]

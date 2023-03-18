@@ -22,16 +22,16 @@ namespace WebAPI.Tables
 
         public bool Zip { get; set; }
 
-        [ForeignKey("ConfigID")]
+        [ForeignKey("ID")]
         public virtual List<tbComputersConfigs> ComputersConfigs { get; set; }
 
-        [ForeignKey("ConfigID")]
+        [ForeignKey("ID")]
         public virtual List<tbGroupsConfigs> GroupsConfigs { get; set; }
 
-        [ForeignKey("ConfigID")]
+        [ForeignKey("ID")]
         public virtual List<tbSources> Sources { get; set; }
 
-        [ForeignKey("ConfigID")]
+        [ForeignKey("ID")]
         public virtual List<tbDestinations> Destinations { get; set; }
     }
 }

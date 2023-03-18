@@ -9,10 +9,10 @@ namespace WebAPI.Tables
         public string GroupName { get; set; }
         public string Description { get; set; }
 
-        //[ForeignKey("ID")]
-        //public virtual tbComputers Computers { get; set; }
+        [ForeignKey("ComputerID")]
+        public virtual tbComputers Computers { get; set; }
 
-        [ForeignKey("GroupID")]
+        [ForeignKey("ID")]
         public virtual List<tbGroupsConfigs> GroupsConfigs { get; set; }
     }
 }

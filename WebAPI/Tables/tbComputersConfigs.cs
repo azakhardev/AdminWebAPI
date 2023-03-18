@@ -12,13 +12,13 @@ namespace WebAPI.Tables
         public int ConfigID { get; set; }
         public string Snapshot { get; set; }
 
-        //[ForeignKey("ComputerID")]
-        //public virtual tbComputers Computers { get; set; }
+        [ForeignKey("ComputerID")]
+        public virtual tbComputers Computers { get; set; }
 
-        //[ForeignKey("ComputerID")]
-        //public virtual tbConfigs Configs { get; set; }
+        [ForeignKey("ConfigID")]
+        public virtual tbConfigs Configs { get; set; }
 
-        [ForeignKey("ComputersConfigsID")]
+        [ForeignKey("ID")]
         public virtual List<tbLogs> Logs { get; set; }
 
     }

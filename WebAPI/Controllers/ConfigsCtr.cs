@@ -1,5 +1,7 @@
 ﻿using K4os.Compression.LZ4.Engine;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using WebAPI.FormatCheck;
 using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +13,8 @@ namespace WebAPI.Controllers
     public class ConfigsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
+        ConfigCheck chechkConfig = new ConfigCheck();
+        
         // GET: api/<Configs>
         [HttpGet]
         public IEnumerable<tbConfigs> Get()
@@ -27,8 +31,16 @@ namespace WebAPI.Controllers
 
         // POST api/<Configs>
         [HttpPost]
-        public tbConfigs Post([FromBody] tbConfigs config)
+        public ActionResult<tbConfigs> Post([FromBody] tbConfigs config)
         {
+            try
+            {
+                chechkConfig.CheckAll(config);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
             dbBackup.Configs.Add(config);
             dbBackup.SaveChanges();
 
@@ -37,10 +49,19 @@ namespace WebAPI.Controllers
 
         // PUT api/<Configs>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] tbConfigs config)
+        public ActionResult<tbConfigs> Put(int id, [FromBody] tbConfigs config)
         {
             //string newConfigName, DateTime newCreationDate, string newAlgorithm, int newMaxPackageAmount, int newMaxPackageSize, string newSchedule, bool newZip
             tbConfigs updatedConfig = dbBackup.Configs.Find(id);
+
+            try
+            {
+                chechkConfig.CheckAll(config);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
 
             updatedConfig.ConfigName = config.ConfigName;
             updatedConfig.CreationDate = config.CreationDate;
@@ -49,8 +70,9 @@ namespace WebAPI.Controllers
             updatedConfig.MaxPackageSize = config.MaxPackageSize;
             updatedConfig.Schedule = config.Schedule;
             updatedConfig.Zip = config.Zip;
-
             dbBackup.SaveChanges();
+            
+            return updatedConfig;
         }
 
         // DELETE api/<Configs>/5

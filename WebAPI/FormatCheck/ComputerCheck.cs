@@ -1,10 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 using WebAPI.Tables;
 
 namespace WebAPI.FormatCheck
 {
     public class ComputerCheck
     {
+        BackupDatabase dbBackup = new BackupDatabase();
         public void CheckAll(tbComputers computer) 
         {
             CheckComputerName(computer);
@@ -23,6 +25,19 @@ namespace WebAPI.FormatCheck
             if (computer.LastBackup > DateTime.Now)
                 return;
             throw new FormatException("Last backup cant be in the future");
+        }
+
+        public void CheckSources() 
+        {
+            foreach (tbConfigs destination in dbBackup.Configs.Include(x => x.Destinations).ToList())
+            {
+
+            }
+        }
+
+        public void CheckDestiantions() 
+        {
+
         }
     }
 }
