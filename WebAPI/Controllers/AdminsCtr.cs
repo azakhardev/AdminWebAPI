@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
 
         // POST api/<Admins>
         [HttpPost]
-        public IActionResult Post([FromBody] tbAdmins admin)
+        public ActionResult<tbAdmins> Post([FromBody] tbAdmins admin)
         {
             //string username, string password, string schedule, string email, string description, bool active
             //dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password,Schedule = schedule, Email = email, Description = description,Active = active });
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
             
             dbBackup.Admins.Add(admin);
             dbBackup.SaveChanges();
-                    
+            return admin;
         }
 
         // PUT api/<Admins>/5
@@ -60,14 +60,12 @@ namespace WebAPI.Controllers
             // string newUsername, string newPassword, string newSchedule, string newEmail, string newDescription, bool newActive
             tbAdmins updatedAdmin = this.dbBackup.Admins.Find(id);
 
-            if (Regex.IsMatch(admin.Username, @"[A-Za-z0-9_]{3,50}$"))
-                updatedAdmin.Username = admin.Username;
-            if (Regex.IsMatch(admin.Password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"))
-                updatedAdmin.Password = admin.Password;
-            if (Regex.IsMatch(admin.Schedule,@""))
+            checkAdmin.CheckAll(updatedAdmin);
+            
+            updatedAdmin.Username = admin.Username;
+            updatedAdmin.Password = admin.Password;
             updatedAdmin.Schedule = admin.Schedule;
-            if (Regex.IsMatch(admin.Email, @"@?"))
-                updatedAdmin.Email = admin.Email;
+            updatedAdmin.Email = admin.Email;
             updatedAdmin.Description = admin.Description;
             updatedAdmin.Active = admin.Active;
 
