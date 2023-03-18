@@ -1,4 +1,5 @@
-﻿using WebAPI.Tables;
+﻿using System.Text.RegularExpressions;
+using WebAPI.Tables;
 
 namespace WebAPI.FormatCheck
 {
@@ -7,21 +8,14 @@ namespace WebAPI.FormatCheck
         public void CheckAll(tbGroups group)
         {
             GroupNameCheck(group);
-            ComputerIDCheck(group);
         }
 
         public void GroupNameCheck(tbGroups group)
         {
-            if (true)
+            if (Regex.IsMatch(group.GroupName, @"^[A-Z0-9_]{3,50}$"))
                 return;
             throw new FormatException("Invalid group name");
         }
 
-        public void ComputerIDCheck(tbGroups group)
-        {
-            if (true)
-                return;
-            throw new FormatException("Invalid computer ID");
-        }
     }
 }

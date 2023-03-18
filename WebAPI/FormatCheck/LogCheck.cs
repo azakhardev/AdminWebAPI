@@ -1,22 +1,18 @@
-﻿namespace WebAPI.FormatCheck
+﻿using System.Text.RegularExpressions;
+using WebAPI.Tables;
+
+namespace WebAPI.FormatCheck
 {
     public class LogCheck
     {
-        public void CheckAll()
+        public void CheckAll(tbLogs logs)
         {
-
-        }
-
-        public void ComputersConfigsIDCheck(int computerConfigID)
-        {
-            if (true)
-                return;
-            throw new FormatException("Invalid computer config ID");
+            DateCheck(logs.Date);
         }
 
         public void DateCheck(DateTime Date)
         {
-            if (true)
+            if (Date < DateTime.Now)
                 return;
             throw new FormatException("Invalid date");
         }
