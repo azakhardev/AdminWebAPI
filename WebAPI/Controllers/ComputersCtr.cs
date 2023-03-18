@@ -46,13 +46,18 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
         }
 
+        [HttpGet("{id}/Logs")]
+        public List<string> GetLogs(int id)
+        {
+            return dbBackup.Computers.Find(id).GetLogs(id, dbBackup);
+        }
+
         //GET api/<Computers>/5/<MacAdresses>
         [HttpGet("{id}/MacAddresses")]
         public List<string> GetMacAddresses(int id)
         {
             return dbBackup.Computers.Find(id).GetMacAddresses(id, dbBackup);
         }
-
 
         // POST api/<Computers>
         [HttpPost]

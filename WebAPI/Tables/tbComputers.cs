@@ -1,4 +1,5 @@
-﻿using MySql.EntityFrameworkCore.Extensions;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using MySql.EntityFrameworkCore.Extensions;
 using Org.BouncyCastle.Tls.Crypto;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -36,14 +37,14 @@ namespace WebAPI.Tables
             return macAddresses;
         }
 
-        public List<string> GetConfigs(int id, BackupDatabase dbBakcup)
+        public List<string> GetConfigs(int id, BackupDatabase dbBackup)
         {
-            List <tbComputersConfigs> tbComputersConfigs = dbBakcup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
+            List <tbComputersConfigs> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
             List <string> configs = new List<string>();
 
             foreach (tbComputersConfigs config in tbComputersConfigs) 
             {
-                configs.Add($"Config ID: {id}, Config Name: {dbBakcup.Configs.Where(x => x.ID == id).FirstOrDefault().ConfigName}");
+                configs.Add($"Config ID: {config.ID}, Config Name: {dbBackup.Configs.Where(x => x.ID == id).FirstOrDefault().ConfigName}");
             }
 
             return configs;
@@ -59,6 +60,19 @@ namespace WebAPI.Tables
                 groups.Add(group.GroupName);
             }
             return groups;
+        }
+
+        public List<string> GetLogs(int id, BackupDatabase dbBackup) 
+        {
+            List<tbComputersConfigs> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
+            List<string> logs = new List<string>();
+
+            foreach (tbComputersConfigs log in tbComputersConfigs)
+            {
+                logs.Add($"Log ID: {log.ID}, Message: {dbBackup.Logs.Where(x => x.ID == id).FirstOrDefault().Message}");
+            }
+
+            return logs;
         }
     }
 }
