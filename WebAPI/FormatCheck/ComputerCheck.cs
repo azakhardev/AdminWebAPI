@@ -27,19 +27,19 @@ namespace WebAPI.FormatCheck
             throw new FormatException("Last backup cant be in the future");
         }
 
-        public void CheckSources(Source source)
-        {
-            if (Regex.IsMatch(source.SourcePath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
-                return;
-            throw new FormatException("Invalid source");
-        }
+        //public void CheckSources(tbSources source)
+        //{
+        //    if (Regex.IsMatch(source.SourcePath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
+        //        return;
+        //    throw new FormatException("Invalid source");
+        //}
 
-        public void CheckDestiantions(Destination destination)
-        {            
-            if (Regex.IsMatch(destination.DestinationPath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
-                return;
-            throw new FormatException("Invalid destination");
+        //public void CheckDestiantions(tbDestinations destination)
+        //{            
+        //    if (Regex.IsMatch(destination.DestinationPath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
+        //        return;
+        //    throw new FormatException("Invalid destination");
             
-        }
+        //}
     }
 }
