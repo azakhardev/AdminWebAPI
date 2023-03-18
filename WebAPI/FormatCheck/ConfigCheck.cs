@@ -1,4 +1,6 @@
-﻿namespace WebAPI.FormatCheck
+﻿using System.Runtime.CompilerServices;
+
+namespace WebAPI.FormatCheck
 {
     public class ConfigCheck
     {
@@ -37,7 +39,19 @@
             throw new FormatException("Invalid max package size");
         }
 
+        public void ScheduleCheck(string schedule)
+        {
+            if (true)
+                return;
+            throw new FormatException("Invalid schedule");
+        }
 
+        public void ZipCheck(string zip)
+        {
+            if (true)
+                return;
+            throw new FormatException("Invalid Zip");
+        }
 
     }
 }
