@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using WebAPI.Tables;
 
@@ -16,14 +17,14 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<tbGroups> Get()
         {
-            return dbBackup.Groups;
+            return dbBackup.Groups.Include(x => x.GroupsConfigs);
         }
 
         // GET api/<Groups>/5
         [HttpGet("{id}")]
         public tbGroups Get(int id)
         {
-            return dbBackup.Groups.Find(id);
+            return dbBackup.Groups.Include(x => x.GroupsConfigs).Where(x => x.ID == id).FirstOrDefault();
         }
 
         // POST api/<Groups>

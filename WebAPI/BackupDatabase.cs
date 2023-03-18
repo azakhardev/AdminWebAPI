@@ -8,7 +8,7 @@ namespace WebAPI
     {
         public DbSet<tbAdmins> Admins { get; set; }
         
-        public DbSet<tbComputersConfigs> ComputerConfig { get; set; }
+        public DbSet<tbComputersConfigs> ComputersConfigs { get; set; }
         
         public DbSet<tbComputers> Computers { get; set; }
 
@@ -16,7 +16,7 @@ namespace WebAPI
 
         public DbSet<tbDestinations> Destinations { get; set; }
 
-        public DbSet<tbGroupsConfigs> GroupConfig { get; set; }
+        public DbSet<tbGroupsConfigs> GroupsConfigs { get; set; }
 
         public DbSet<tbGroups> Groups { get; set; }
 

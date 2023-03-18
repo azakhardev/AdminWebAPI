@@ -18,7 +18,7 @@ namespace WebAPI.Tables
         //[ForeignKey("ConfigID")]
         //public virtual tbConfigs Configs { get; set; }
 
-        [ForeignKey("ComputersConfigID")]
+        [ForeignKey("ComputersConfigsID")]
         public virtual List<tbLogs> Logs { get; set; }
 
     }

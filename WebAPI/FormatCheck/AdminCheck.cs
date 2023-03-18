@@ -28,7 +28,7 @@ namespace WebAPI.FormatCheck
 
         public void ScheduleCheck(string schedule)
         {
-            if (Regex.IsMatch(schedule, @""))
+            if (Regex.IsMatch(schedule, @"^(*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2})$"))
                 return;
             throw new FormatException("Invalid schedule");
         }

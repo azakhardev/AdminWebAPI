@@ -45,7 +45,7 @@ namespace WebAPI.FormatCheck
 
         public void ScheduleCheck(tbConfigs config)
         {
-            if (Regex.IsMatch(config.Schedule, @""))
+            if (Regex.IsMatch(config.Schedule, @"^(*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2})$"))
                 return;
             throw new FormatException("Invalid schedule");
         }

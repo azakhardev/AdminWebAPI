@@ -1,5 +1,6 @@
 ﻿using K4os.Compression.LZ4.Engine;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using WebAPI.FormatCheck;
 using WebAPI.Tables;
@@ -13,20 +14,20 @@ namespace WebAPI.Controllers
     public class ConfigsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
-        ConfigCheck chechkConfig = new ConfigCheck();
+        ConfigCheck checkConfig = new ConfigCheck();
         
         // GET: api/<Configs>
         [HttpGet]
         public IEnumerable<tbConfigs> Get()
         {
-            return dbBackup.Configs;
+            return dbBackup.Configs.Include(x => x.GroupsConfigs).Include(x => x.ComputersConfigs).Include(x => x.Sources).Include(x => x.Destinations);
         }
 
         // GET api/<Configs>/5
         [HttpGet("{id}")]
         public tbConfigs Get(int id)
         {
-            return dbBackup.Configs.Find(id);
+            return dbBackup.Configs.Include(x => x.GroupsConfigs).Include(x => x.ComputersConfigs).Include(x => x.Sources).Include(x => x.Destinations).Where(x => x.ID == id).FirstOrDefault();
         }
 
         // POST api/<Configs>
@@ -35,7 +36,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                chechkConfig.CheckAll(config);
+                checkConfig.CheckAll(config);
             }
             catch (FormatException ex)
             {
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
 
             try
             {
-                chechkConfig.CheckAll(config);
+                checkConfig.CheckAll(config);
             }
             catch (FormatException ex)
             {

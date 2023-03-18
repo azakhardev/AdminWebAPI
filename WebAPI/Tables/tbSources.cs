@@ -7,7 +7,7 @@ namespace WebAPI.Tables
     {
         public int ID { get; set; }
 
-        public int ConfigsID { get; set; }
+        public int ConfigID { get; set; }
 
         public string SourcePath { get; set; }
 
