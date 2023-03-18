@@ -37,8 +37,6 @@ namespace WebAPI.Controllers
         [HttpPost]
         public ActionResult<tbAdmins> Post([FromBody] tbAdmins admin)
         {
-            //string username, string password, string schedule, string email, string description, bool active
-            //dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password,Schedule = schedule, Email = email, Description = description,Active = active });
             try
             {
                 checkAdmin.CheckAll(admin);
@@ -57,10 +55,16 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult<tbAdmins> Put(int id, [FromBody] tbAdmins admin)
         {
-            // string newUsername, string newPassword, string newSchedule, string newEmail, string newDescription, bool newActive
             tbAdmins updatedAdmin = this.dbBackup.Admins.Find(id);
 
-            checkAdmin.CheckAll(updatedAdmin);
+            try
+            {
+                checkAdmin.CheckAll(admin);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }            
             
             updatedAdmin.Username = admin.Username;
             updatedAdmin.Password = admin.Password;

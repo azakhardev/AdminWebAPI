@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Mysqlx.Crud;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Text.RegularExpressions;
+using WebAPI.FormatCheck;
 using WebAPI.Tables;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +16,7 @@ namespace WebAPI.Controllers
     public class ComputersCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
+        ComputerCheck checkComputer = new ComputerCheck();
         // GET: api/<Computers>
         [HttpGet]
         public IEnumerable<tbComputers> Get()
@@ -30,40 +33,46 @@ namespace WebAPI.Controllers
 
         // POST api/<Computers>
         [HttpPost]
-        public tbComputers Post([FromBody] tbComputers computer)
+        public ActionResult<tbComputers> Post([FromBody] tbComputers computer)
         {
-            if (Regex.IsMatch(computer.ComputerName, @"[A-Za-z0-9_]{3,50}$"))
-                
-            //string computerName, string backupStatus, string computerStatus, string description, DateTime lastBackup
-            //dbBackup.Computers.Add(new tbComputers()
-            //{
-            //    ComputerName = computerName,
-            //    BackupStatus = backupStatus,
-            //    ComputerStatus = computerStatus,
-            //    Description = description,
-            //    LastBackup = lastBackup
-            //});
+            try
+            {
+                checkComputer.ChechkAll(computer);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
             dbBackup.Computers.Add(computer);
             dbBackup.SaveChanges();
 
             return computer;
         }
-        
+
         // PUT api/<Computers>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] tbComputers computer)
+        public ActionResult<tbComputers> Put(int id, [FromBody] tbComputers computer)
         {
-            // = dbBackup.Computers.Find(id).ComputerName
-            //string newComputerName, string newBackupStatus, string newComputerStatus, string newDescription
             tbComputers updatedComputer = this.dbBackup.Computers.Find(id);
+
+            try
+            {
+                checkComputer.ChechkAll(computer);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
 
             updatedComputer.ComputerName = computer.ComputerName;
             updatedComputer.BackupStatus = computer.BackupStatus;
             updatedComputer.ComputerStatus = computer.ComputerStatus;
             updatedComputer.Description = computer.Description;
             updatedComputer.LastBackup = computer.LastBackup;
-            
             dbBackup.SaveChanges();
+
+            return updatedComputer;
         }
 
         // DELETE api/<Computers>/5
