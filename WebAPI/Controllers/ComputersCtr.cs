@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         // GET: api/<Computers>
         [HttpGet]
         public IEnumerable<tbComputers> Get()
-        {
+        { 
             return dbBackup.Computers;
         }
 
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                checkComputer.ChechkAll(computer);
+                checkComputer.CheckAll(computer);
             }
             catch (FormatException ex)
             {
@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
 
             try
             {
-                checkComputer.ChechkAll(computer);
+                checkComputer.CheckAll(computer);
             }
             catch (FormatException ex)
             {

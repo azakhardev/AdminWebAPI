@@ -34,7 +34,6 @@ namespace WebAPI.Controllers
         }
 
         // POST api/<Admins>
-<<<<<<< Updated upstream
         [HttpPost]
         public ActionResult<tbAdmins> Post([FromBody] tbAdmins admin)
         {
@@ -51,26 +50,6 @@ namespace WebAPI.Controllers
             dbBackup.SaveChanges();
             return admin;
         }
-=======
-        //[HttpPost]
-        //public IActionResult Post([FromBody] tbAdmins admin)
-        //{
-        //    //string username, string password, string schedule, string email, string description, bool active
-        //    //dbBackup.Admins.Add(new tbAdmins() {Username = username, Password = password,Schedule = schedule, Email = email, Description = description,Active = active });
-        //    try
-        //    {
-        //        checkAdmin.CheckAll(admin);
-        //    }
-        //    catch (FormatException ex)
-        //    {
-        //        return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-        //    }
-            
-        //    dbBackup.Admins.Add(admin);
-        //    dbBackup.SaveChanges();
-                    
-        //}
->>>>>>> Stashed changes
 
         // PUT api/<Admins>/5
         [HttpPut("{id}")]

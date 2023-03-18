@@ -45,13 +45,5 @@ namespace WebAPI.FormatCheck
                 return;
             throw new FormatException("Invalid schedule");
         }
-
-        public void ZipCheck(string zip)
-        {
-            if (true)
-                return;
-            throw new FormatException("Invalid Zip");
-        }
-
     }
 }
