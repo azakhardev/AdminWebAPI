@@ -60,7 +60,7 @@ namespace WebAPI.Tables
                 groups.Add(group.ID);
             }
 
-            return groups;s
+            return groups;
         }
 
         public List<string> GetSourcePaths(int id, BackupDatabase dbBackup)
