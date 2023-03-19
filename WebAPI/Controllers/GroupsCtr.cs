@@ -32,16 +32,16 @@ namespace WebAPI.Controllers
 
         // GET api/<Groups>/5/Computers
         [HttpGet("{id}/Computers")]
-        public List<int> GetComputers(int id)
+        public List<tbComputers> GetComputers(int id)
         {
-            return dbBackup.Groups.Find(id).GetComputersID(id, dbBackup);
+            return dbBackup.Groups.Find(id).GetComputers(id, dbBackup);
         }
 
         // GET api/<Groups>/5/Configs
         [HttpGet("{id}/Configs")]
-        public List<int> GetConfigs(int id)
+        public List<tbConfigs> GetConfigs(int id)
         {
-            return dbBackup.Groups.Find(id).GetConfigsID(id, dbBackup);
+            return dbBackup.Groups.Find(id).GetConfigs(id, dbBackup);
         }
 
         // POST api/<Groups>

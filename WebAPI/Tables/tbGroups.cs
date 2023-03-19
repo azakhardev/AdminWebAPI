@@ -4,7 +4,7 @@ namespace WebAPI.Tables
     [Table("Groups")]
     public class tbGroups
     {        
-        public int ID { get; set; }         
+        public int ID { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
 
@@ -14,27 +14,27 @@ namespace WebAPI.Tables
         [ForeignKey("GroupID")]
         public virtual List<tbGroupsConfigs> GroupsConfigs { get; set; }
 
-        public List<int> GetComputersID(int groupID, BackupDatabase dbBackup)
+        public List<tbComputers> GetComputers(int groupID, BackupDatabase dbBackup)
         {
             List<tbComputersGroups> tbComputersGroups= dbBackup.ComputersGroups.Where(x => x.GroupID == groupID).ToList();
-            List<int> computers = new List<int>();
+            List<tbComputers> computers = new List<tbComputers>();
 
             foreach (tbComputersGroups computer in tbComputersGroups)
             {
-                computers.Add(computer.ComputerID);
+                computers.Add(dbBackup.Computers.Find(computer.ComputerID));
             }
 
             return computers;
         }
 
-        public List<int> GetConfigsID(int groupID, BackupDatabase dbBackup)
+        public List<tbConfigs> GetConfigs(int groupID, BackupDatabase dbBackup)
         {
             List<tbGroupsConfigs> tbGroupsConfigs = dbBackup.GroupsConfigs.Where(x => x.GroupID == groupID).ToList();
-            List<int> configs = new List<int>();
+            List<tbConfigs> configs = new List<tbConfigs>();
 
             foreach (tbGroupsConfigs config in tbGroupsConfigs)
             {
-                configs.Add(config.ConfigID);
+                configs.Add(dbBackup.Configs.Find(config.ConfigID));
             }
 
             return configs;
