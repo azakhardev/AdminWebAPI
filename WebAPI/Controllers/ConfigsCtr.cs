@@ -109,5 +109,19 @@ namespace WebAPI.Controllers
         {
             dbBackup.Configs.Remove(dbBackup.Configs.Find(id));
         }
+
+        // DELETE api/<Configs>/5/Source
+        [HttpDelete("{id}/Source")]
+        public void DeleteSource(int id)
+        {
+            dbBackup.Sources.Remove(dbBackup.Sources.Where(x => x.ConfigID == id).FirstOrDefault());
+        }
+
+        // DELETE api/<Configs>/5/Destination
+        [HttpDelete("{id}/Destination")]
+        public void DeleteDestination(int id)
+        {
+            dbBackup.Destinations.Remove(dbBackup.Destinations.Where(x => x.ConfigID == id).FirstOrDefault());
+        }
     }
 }

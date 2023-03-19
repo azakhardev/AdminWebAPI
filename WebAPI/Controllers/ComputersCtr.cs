@@ -18,6 +18,7 @@ namespace WebAPI.Controllers
     {
         BackupDatabase dbBackup = new BackupDatabase();
         ComputerCheck checkComputer = new ComputerCheck();
+        
         // GET: api/<Computers>
         [HttpGet]
         public IEnumerable<tbComputers> Get()
@@ -78,6 +79,25 @@ namespace WebAPI.Controllers
             return computer;
         }
 
+        //// POST api/<Computers>
+        //[HttpPost]
+        //public ActionResult<tbConfigs> PostConfig([FromBody] tbConfigs config)
+        //{
+        //    try
+        //    {
+        //        CheckCo
+        //    }
+        //    catch (FormatException ex)
+        //    {
+
+        //    }
+
+        //    dbBackup.Configs.Add();
+        //    dbBackup.SaveChanges();
+
+        //    return computer;
+        //}
+
         // PUT api/<Computers>/5
         [HttpPut("{id}")]
         public ActionResult<tbComputers> Put(int id, [FromBody] tbComputers computer)
@@ -109,6 +129,13 @@ namespace WebAPI.Controllers
         {
             dbBackup.Computers.Remove(dbBackup.Computers.Find(id));
             dbBackup.SaveChanges();
+        }
+
+        // DELETE api/<Computers>/5/MacAddress
+        [HttpDelete("{id}/MacAddress")]
+        public void DeleteMacAddress(int id)
+        {
+            dbBackup.MacAdresses.Remove(dbBackup.MacAdresses.Where(x => x.ComputerID == id).FirstOrDefault());
         }
     }
 }
