@@ -2,6 +2,7 @@
 using MySql.EntityFrameworkCore.Extensions;
 using Org.BouncyCastle.Tls.Crypto;
 using System.ComponentModel.DataAnnotations.Schema;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace WebAPI.Tables
 {
@@ -22,7 +23,7 @@ namespace WebAPI.Tables
         public virtual List<tbComputersConfigs> ComputersConfigs { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual List<tbGroups> Groups { get; set; }
+        public virtual List<tbComputersGroups> ComputersGroups { get; set; }
 
         public List<string> GetMacAddresses(int id, BackupDatabase dbBackup) 
         {
@@ -50,15 +51,16 @@ namespace WebAPI.Tables
             return configs;
         }
 
-        public List<string> GetGroups(int id, BackupDatabase dbBackup) 
+        public List<string> GetGroups(int id, BackupDatabase dbBackup)
         {
-            List<tbGroups> tbGroups = dbBackup.Groups.Where(x => x.ComputerID == id).ToList();
+            List<tbComputersGroups> tbComputersGroups = dbBackup.ComputersGroups.Where(x => x.ComputerID == id).ToList();
             List<string> groups = new List<string>();
 
-            foreach (tbGroups group in tbGroups) 
+            foreach (tbComputersGroups group in tbComputersGroups)
             {
-                groups.Add(group.GroupName);
+                groups.Add($"Group ID: {group.ID}, Group Name: {dbBackup.Groups.Where(x => x.ID == id).FirstOrDefault().GroupName}");
             }
+
             return groups;
         }
 

@@ -7,26 +7,26 @@ namespace WebAPI
     public class BackupDatabase : DbContext
     {
         public DbSet<tbAdmins> Admins { get; set; }
-        
-        public DbSet<tbComputersConfigs> ComputersConfigs { get; set; }
-        
+
         public DbSet<tbComputers> Computers { get; set; }
 
         public DbSet<tbConfigs> Configs { get; set; }
 
-        public DbSet<tbDestinations> Destinations { get; set; }
+        public DbSet<tbGroups> Groups { get; set; }
+
+        public DbSet<tbComputersConfigs> ComputersConfigs { get; set; }
 
         public DbSet<tbGroupsConfigs> GroupsConfigs { get; set; }
 
-        public DbSet<tbGroups> Groups { get; set; }
-
-        public DbSet<tbLogs> Logs { get; set; }
+        public DbSet<tbComputersGroups> ComputersGroups { get; set; }
 
         public DbSet<tbMacAddresses> MacAdresses { get; set; }
 
-        public DbSet<tbSources> Sources { get; set; }
+        public DbSet<tbLogs> Logs { get; set; }
 
-        //BackupDatabase dbBackup = new BackupDatabase();
+        public DbSet<tbDestinations> Destinations { get; set; }
+
+        public DbSet<tbSources> Sources { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

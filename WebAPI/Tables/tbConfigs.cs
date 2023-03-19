@@ -37,7 +37,7 @@ namespace WebAPI.Tables
         [ForeignKey("ConfigID")]
         public virtual List<tbDestinations> Destinations { get; set; }
 
-        public List<int> GetComputers(int id, BackupDatabase dbBackup)
+        public List<int> GetComputersID(int id, BackupDatabase dbBackup)
         {
             List<tbComputers> tbComputers = dbBackup.Computers.Where(x => x.ID == id).ToList();
             List<int> computers = new List<int>();
@@ -50,7 +50,7 @@ namespace WebAPI.Tables
             return computers;
         }
 
-        public List<int> GetGroups(int id, BackupDatabase dbBackup)
+        public List<int> GetGroupsID(int id, BackupDatabase dbBackup)
         {
             List<tbGroups> tbGroups = dbBackup.Groups.Where(x => x.ID == id).ToList();
             List<int> groups = new List<int>();

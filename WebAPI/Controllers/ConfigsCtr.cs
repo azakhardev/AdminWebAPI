@@ -30,6 +30,34 @@ namespace WebAPI.Controllers
             return dbBackup.Configs.Include(x => x.GroupsConfigs).Include(x => x.ComputersConfigs).Include(x => x.Sources).Include(x => x.Destinations).Where(x => x.ID == id).FirstOrDefault();
         }
 
+        // GET api/<Configs>/5/Computers
+        [HttpGet("{id}/Computers")]
+        public List<int> GetComputers(int id)
+        {
+            return dbBackup.Configs.Find(id).GetComputersID(id,dbBackup);
+        }
+
+        // GET api/<Configs>/5/Groups
+        [HttpGet("{id}/Groups")]
+        public List<int> GetGroups(int id)
+        {
+            return dbBackup.Configs.Find(id).GetGroupsID(id, dbBackup);
+        }
+
+        // GET api/<Configs>/5/Sources
+        [HttpGet("{id}/Sources")]
+        public List<string> GetSources(int id)
+        {
+            return dbBackup.Configs.Find(id).GetSourcePaths(id, dbBackup);
+        }
+
+        // GET api/<Configs>/5/Desttinations
+        [HttpGet("{id}/Destinations")]
+        public List<string> GetDestinations(int id)
+        {
+            return dbBackup.Configs.Find(id).GetDestinationPaths(id, dbBackup);
+        }
+        
         // POST api/<Configs>
         [HttpPost]
         public ActionResult<tbConfigs> Post([FromBody] tbConfigs config)
@@ -51,8 +79,7 @@ namespace WebAPI.Controllers
         // PUT api/<Configs>/5
         [HttpPut("{id}")]
         public ActionResult<tbConfigs> Put(int id, [FromBody] tbConfigs config)
-        {
-            //string newConfigName, DateTime newCreationDate, string newAlgorithm, int newMaxPackageAmount, int newMaxPackageSize, string newSchedule, bool newZip
+        {            
             tbConfigs updatedConfig = dbBackup.Configs.Find(id);
 
             try

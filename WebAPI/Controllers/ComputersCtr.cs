@@ -22,14 +22,14 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<tbComputers> Get()
         { 
-            return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.Groups).Include(x => x.MacAddresses);
+            return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.ComputersGroups).Include(x => x.MacAddresses).Include(x => x.ComputersGroups);
         }
 
         // GET api/<Computers>/5
         [HttpGet("{id}")]
         public tbComputers Get(int id)
         {            
-            return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.Groups).Include(x => x.MacAddresses).Where(x => x.ID == id).FirstOrDefault();
+            return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.ComputersGroups).Include(x => x.MacAddresses).Include(x => x.ComputersGroups).Where(x => x.ID == id).FirstOrDefault();
         }
 
         //GET api/<Computers>/5/<Configs>
@@ -39,12 +39,12 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Find(id).GetConfigs(id, dbBackup);
         }
 
-        //GET api/<Computers>/5/<Groups>
-        [HttpGet("{id}/Groups")]
-        public List<string> GetGroups(int id)
-        {
-            return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
-        }
+        ////GET api/<Computers>/5/<Groups>
+        //[HttpGet("{id}/Groups")]
+        //public List<string> GetGroups(int id)
+        //{
+        //    return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
+        //}
 
         [HttpGet("{id}/Logs")]
         public List<string> GetLogs(int id)
