@@ -7,14 +7,14 @@ namespace WebAPI.FormatCheck
     {
         public void CheckAll(tbLogs logs)
         {
-            DateCheck(logs.Date);
+            DateInsertCheck(logs.Date);
         }
 
-        public void DateCheck(DateTime Date)
+        public void DateInsertCheck(DateTime Date)
         {
             if (Date < DateTime.Now)
                 return;
-            throw new FormatException("Invalid date");
+            throw new FormatException("Date of the log can't be in the future");
         }
     }
 }

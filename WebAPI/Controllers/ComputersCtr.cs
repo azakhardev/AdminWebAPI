@@ -39,12 +39,12 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Find(id).GetConfigs(id, dbBackup);
         }
 
-        ////GET api/<Computers>/5/<Groups>
-        //[HttpGet("{id}/Groups")]
-        //public List<string> GetGroups(int id)
-        //{
-        //    return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
-        //}
+        //GET api/<Computers>/5/<Groups>
+        [HttpGet("{id}/Groups")]
+        public List<string> GetGroups(int id)
+        {
+            return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
+        }
 
         [HttpGet("{id}/Logs")]
         public List<string> GetLogs(int id)

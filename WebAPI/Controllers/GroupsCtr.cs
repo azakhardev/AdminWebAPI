@@ -30,6 +30,20 @@ namespace WebAPI.Controllers
             return dbBackup.Groups.Include(x => x.GroupsConfigs).Include(x => x.ComputersGroups).Where(x => x.ID == id).FirstOrDefault();
         }
 
+        // GET api/<Groups>/5/Computers
+        [HttpGet("{id}/Computers")]
+        public List<int> GetComputers(int id)
+        {
+            return dbBackup.Groups.Find(id).GetComputersID(id, dbBackup);
+        }
+
+        // GET api/<Groups>/5/Configs
+        [HttpGet("{id}/Configs")]
+        public List<int> GetConfigs(int id)
+        {
+            return dbBackup.Groups.Find(id).GetConfigsID(id, dbBackup);
+        }
+
         // POST api/<Groups>
         [HttpPost]
         public ActionResult<tbGroups> Post([FromBody] tbGroups group)

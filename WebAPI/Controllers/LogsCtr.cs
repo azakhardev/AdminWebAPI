@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using WebAPI.FormatCheck;
 using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +13,8 @@ namespace WebAPI.Controllers
     public class LogsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
+        LogCheck checkLog = new LogCheck();
+
         // GET: api/<Logs>
         [HttpGet]
         public IEnumerable<tbLogs> Get()
@@ -27,10 +31,17 @@ namespace WebAPI.Controllers
 
         // POST api/<Logs>
         [HttpPost]
-        public tbLogs Post([FromBody] tbLogs log)
+        public ActionResult<tbLogs> Post([FromBody] tbLogs log)
         {
-            //DateTime date, bool error, string message
-            //dbBackup.Logs.Add(new tbLogs() {Date = date, Errors = error, Message = message});
+            try
+            {
+                checkLog.CheckAll(log);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
             dbBackup.Logs.Add(log);
             dbBackup.SaveChanges();
 
@@ -39,16 +50,28 @@ namespace WebAPI.Controllers
 
         // PUT api/<Logs>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] tbLogs log)
+        public ActionResult<tbLogs> Put(int id, [FromBody] tbLogs log)
         {
+            
             //DateTime newDate, bool newError, string newMessage
             tbLogs updatedLog = this.dbBackup.Logs.Find(id);
+
+            try
+            {
+                checkLog.CheckAll(log);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
 
             updatedLog.Date = log.Date;
             updatedLog.Errors = log.Errors;
             updatedLog.Message = log.Message;
-
             dbBackup.SaveChanges();
+
+            return log;
         }
 
         // DELETE api/<Logs>/5

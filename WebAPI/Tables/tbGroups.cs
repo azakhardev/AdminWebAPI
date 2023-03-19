@@ -14,17 +14,30 @@ namespace WebAPI.Tables
         [ForeignKey("GroupID")]
         public virtual List<tbGroupsConfigs> GroupsConfigs { get; set; }
 
-        //public List<int> GetComputersID(int computerID, BackupDatabase dbBackup) 
-        //{
-        //    List<tbComputers> tbComputers = dbBackup.Computers.Where(x => x.ID == computerID).ToList();
-        //    List<int> computers = new List<int>();
+        public List<int> GetComputersID(int groupID, BackupDatabase dbBackup)
+        {
+            List<tbComputersGroups> tbComputersGroups= dbBackup.ComputersGroups.Where(x => x.GroupID == groupID).ToList();
+            List<int> computers = new List<int>();
 
-        //    foreach (tbComputers item in tbComputers)
-        //    {
-        //        computers.Add(item.ID);
-        //    }
+            foreach (tbComputersGroups computer in tbComputersGroups)
+            {
+                computers.Add(computer.ComputerID);
+            }
 
-        //    return computers;
-        //}
+            return computers;
+        }
+
+        public List<int> GetConfigsID(int groupID, BackupDatabase dbBackup)
+        {
+            List<tbGroupsConfigs> tbGroupsConfigs = dbBackup.GroupsConfigs.Where(x => x.GroupID == groupID).ToList();
+            List<int> configs = new List<int>();
+
+            foreach (tbGroupsConfigs config in tbGroupsConfigs)
+            {
+                configs.Add(config.ConfigID);
+            }
+
+            return configs;
+        }
     }
 }
