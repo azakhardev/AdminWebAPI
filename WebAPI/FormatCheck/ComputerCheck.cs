@@ -6,7 +6,6 @@ namespace WebAPI.FormatCheck
 {
     public class ComputerCheck
     {
-        BackupDatabase dbBackup = new BackupDatabase();
         public void CheckAll(tbComputers computer)
         {
             CheckComputerName(computer);
@@ -26,20 +25,5 @@ namespace WebAPI.FormatCheck
                 return;
             throw new FormatException("Last backup cant be in the future");
         }
-
-        //public void CheckSources(tbSources source)
-        //{
-        //    if (Regex.IsMatch(source.SourcePath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
-        //        return;
-        //    throw new FormatException("Invalid source");
-        //}
-
-        //public void CheckDestiantions(tbDestinations destination)
-        //{            
-        //    if (Regex.IsMatch(destination.DestinationPath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
-        //        return;
-        //    throw new FormatException("Invalid destination");
-            
-        //}
     }
 }

@@ -34,9 +34,9 @@ namespace WebAPI.FormatCheck
 
         public void EmailCheck(string email)
         {
-            if (Regex.IsMatch(email, @"@"))
+            if (Regex.IsMatch(email, @"^[^@]+@[a-z0-9]+(\.[a-z0-9]+)*\.[a-z]+$"))
                 return;
-            throw new FormatException("Invalid email");
+            throw new FormatException("Invalid email, please enter at least one @.");
         }
     }
 }

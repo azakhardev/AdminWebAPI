@@ -35,14 +35,14 @@ namespace WebAPI.Controllers
 
         //GET api/<Computers>/5/<Configs>
         [HttpGet("{id}/Configs")]
-        public List<string> GetConfigs(int id)
+        public List<tbConfigs> GetConfigs(int id)
         {
             return dbBackup.Computers.Find(id).GetConfigs(id, dbBackup);
         }
 
         //GET api/<Computers>/5/<Groups>
         [HttpGet("{id}/Groups")]
-        public List<string> GetGroups(int id)
+        public List<tbGroups> GetGroups(int id)
         {
             return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
         }

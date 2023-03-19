@@ -38,40 +38,40 @@ namespace WebAPI.Tables
             return macAddresses;
         }
 
-        public List<string> GetConfigs(int id, BackupDatabase dbBackup)
+        public List<tbConfigs> GetConfigs(int id, BackupDatabase dbBackup)
         {
             List <tbComputersConfigs> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
-            List <string> configs = new List<string>();
+            List <tbConfigs> configs = new List<tbConfigs>();
 
             foreach (tbComputersConfigs config in tbComputersConfigs) 
-            {
-                configs.Add($"Config ID: {config.ID}, Config Name: {dbBackup.Configs.Where(x => x.ID == id).FirstOrDefault().ConfigName}");
+            {                
+                configs.Add(dbBackup.Configs.Find(config.ConfigID));
             }
 
             return configs;
         }
 
-        public List<string> GetGroups(int id, BackupDatabase dbBackup)
+        public List<tbGroups> GetGroups(int id, BackupDatabase dbBackup)
         {
             List<tbComputersGroups> tbComputersGroups = dbBackup.ComputersGroups.Where(x => x.ComputerID == id).ToList();
-            List<string> groups = new List<string>();
+            List<tbGroups> groups = new List<tbGroups>();
 
             foreach (tbComputersGroups group in tbComputersGroups)
             {
-                groups.Add($"Group ID: {group.ID}, Group Name: {dbBackup.Groups.Where(x => x.ID == id).FirstOrDefault().GroupName}");
+                groups.Add(dbBackup.Groups.Find(group.GroupID));
             }
 
             return groups;
         }
 
-        public List<string> GetLogs(int id, BackupDatabase dbBackup) 
+        public List<tbLogs> GetLogs(int id, BackupDatabase dbBackup) 
         {
             List<tbComputersConfigs> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
-            List<string> logs = new List<string>();
+            List<tbLogs> logs = new List<tbLogs>();
 
             foreach (tbComputersConfigs log in tbComputersConfigs)
             {
-                logs.Add($"Log ID: {log.ID}, Message: {dbBackup.Logs.Where(x => x.ID == id).FirstOrDefault().Message}");
+                logs.Add(dbBackup.Logs.Find(log.ComputerID));
             }
 
             return logs;
