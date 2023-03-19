@@ -49,5 +49,20 @@ namespace WebAPI.FormatCheck
                 return;
             throw new FormatException("Invalid schedule");
         }
+
+        //public void CheckSources(tbSources source)
+        //{
+        //    if (Regex.IsMatch(source.SourcePath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
+        //        return;
+        //    throw new FormatException("Invalid source");
+        //}
+
+        //public void CheckDestiantions(tbDestinations destination)
+        //{            
+        //    if (Regex.IsMatch(destination.DestinationPath, @"^[A-Za-z]:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*$"))
+        //        return;
+        //    throw new FormatException("Invalid destination");
+
+        //}
     }
 }

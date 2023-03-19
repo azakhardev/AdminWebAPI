@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}/Logs")]
-        public List<string> GetLogs(int id)
+        public List<tbLogs> GetLogs(int id)
         {
             return dbBackup.Computers.Find(id).GetLogs(id, dbBackup);
         }
