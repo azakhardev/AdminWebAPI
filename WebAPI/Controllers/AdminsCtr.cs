@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using WebAPI.FormatCheck;
 using WebAPI.Tables;
+using WebAPI.Tables.Help_Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,19 +19,20 @@ namespace WebAPI.Controllers
     {
         BackupDatabase dbBackup = new BackupDatabase();
         AdminCheck checkAdmin = new AdminCheck();
+        tbAdminsNoPass tbAdminNoPass = new tbAdminsNoPass();
 
         // GET: api/<Admins>
         [HttpGet]
-        public IEnumerable<tbAdmins> Get()
+        public IEnumerable<tbAdminsNoPass> Get()
         {
-            return dbBackup.Admins;
+            return tbAdminNoPass.CreateAdminsNoPass(dbBackup); 
         }
 
         // GET api/<Admins>/5
         [HttpGet("{id}")]
-        public tbAdmins Get(int id)
+        public tbAdminsNoPass Get(int id)
         {
-            return dbBackup.Admins.Find(id);
+            return tbAdminNoPass.GetAdminNoPass(id, dbBackup);
         }
 
         // POST api/<Admins>
