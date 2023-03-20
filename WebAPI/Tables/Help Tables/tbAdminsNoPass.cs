@@ -1,6 +1,6 @@
 ﻿namespace WebAPI.Tables.Help_Tables
 {
-    public class tbAdminsNoPass 
+    public class tbAdminsNoPass
     {
         public int ID { get; set; }
         public string Username { get; set; }
@@ -9,7 +9,7 @@
         public string Email { get; set; }
         public bool Active { get; set; }
 
-        public List<tbAdminsNoPass> CreateAdminsNoPass(BackupDatabase dbBackup) 
+        public List<tbAdminsNoPass> CreateAdminsNoPass(BackupDatabase dbBackup)
         {
 
             List<tbAdminsNoPass> adminsNoPass = new List<tbAdminsNoPass>();
@@ -31,10 +31,11 @@
             return adminsNoPass;
         }
 
-        public tbAdminsNoPass GetAdminNoPass(int adminID, BackupDatabase dbBackup) 
+        public tbAdminsNoPass GetAdminNoPass(int adminID, BackupDatabase dbBackup)
         {
             tbAdmins admin = dbBackup.Admins.Find(adminID);
-            tbAdminsNoPass tbAdminNoPass = new tbAdminsNoPass() {
+            tbAdminsNoPass tbAdminNoPass = new tbAdminsNoPass()
+            {
                 ID = admin.ID,
                 Username = admin.Username,
                 Active = admin.Active,
@@ -42,7 +43,7 @@
                 Email = admin.Email,
                 Schedule = admin.Schedule
             };
-            return tbAdminNoPass; 
+            return tbAdminNoPass;
         }
     }
 }

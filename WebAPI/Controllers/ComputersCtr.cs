@@ -47,10 +47,18 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
         }
 
+        //GET api/<Computers>/5/Logs
         [HttpGet("{id}/Logs")]
         public List<tbLogs> GetLogs(int id)
         {
             return dbBackup.Computers.Find(id).GetLogs(id, dbBackup);
+        }
+
+        //GET api/<Computers>/5/Snapshots
+        [HttpGet("{id}/ComputersConfigs")]
+        public List<tbComputersConfigs> GetSnapshots(int id)
+        {
+            return dbBackup.Computers.Find(id).GetSnapshots(id, dbBackup);
         }
 
         //GET api/<Computers>/5/<MacAdresses>

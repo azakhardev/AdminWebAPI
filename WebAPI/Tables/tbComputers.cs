@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using MySql.EntityFrameworkCore.Extensions;
 using Org.BouncyCastle.Tls.Crypto;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -75,6 +76,19 @@ namespace WebAPI.Tables
             }
 
             return logs;
+        }
+
+        public List<tbComputersConfigs> GetSnapshots(int id, BackupDatabase dbBackup) 
+        {
+            List<tbComputersConfigs> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
+            List<tbComputersConfigs> computersConfigs = new List<tbComputersConfigs>();
+
+            foreach (tbComputersConfigs item in tbComputersConfigs)
+            {
+                computersConfigs.Add(dbBackup.ComputersConfigs.Find(item.ComputerID));
+            }
+
+            return computersConfigs;
         }
     }
 }
