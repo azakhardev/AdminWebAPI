@@ -2,20 +2,12 @@
 
 namespace WebAPI.Tables
 {
-    [Table("Sources")]
-    public class tbSources
+    [Table("Destinations")]
+    public class DestinationsTb
     {
         public int ID { get; set; }
-
         public int ConfigID { get; set; }
-
-        public string SourcePath { get; set; }
-
-        public string FileName { get; set; }
-
-        public DateTime CreationDate { get; set; }
-
-        public DateTime UpdateDate { get; set;}
+        public string DestinationPath { get; set; }
 
         //[ForeignKey("ConfigID")]
         //public virtual tbConfigs Configs { get; set; }

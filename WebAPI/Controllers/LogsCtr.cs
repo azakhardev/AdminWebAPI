@@ -17,21 +17,21 @@ namespace WebAPI.Controllers
 
         // GET: api/<Logs>
         [HttpGet]
-        public IEnumerable<tbLogs> Get()
+        public IEnumerable<LogsTb> Get()
         {
             return dbBackup.Logs;
         }
 
         // GET api/<Logs>/5
         [HttpGet("{id}")]
-        public tbLogs Get(int id)
+        public LogsTb Get(int id)
         {
             return dbBackup.Logs.Find(id);
         }
 
         // POST api/<Logs>
         [HttpPost]
-        public ActionResult<tbLogs> Post([FromBody] tbLogs log)
+        public ActionResult<LogsTb> Post([FromBody] LogsTb log)
         {
             try
             {
@@ -50,11 +50,11 @@ namespace WebAPI.Controllers
 
         // PUT api/<Logs>/5
         [HttpPut("{id}")]
-        public ActionResult<tbLogs> Put(int id, [FromBody] tbLogs log)
+        public ActionResult<LogsTb> Put(int id, [FromBody] LogsTb log)
         {
             
             //DateTime newDate, bool newError, string newMessage
-            tbLogs updatedLog = this.dbBackup.Logs.Find(id);
+            LogsTb updatedLog = this.dbBackup.Logs.Find(id);
 
             try
             {

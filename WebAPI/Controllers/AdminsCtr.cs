@@ -19,25 +19,25 @@ namespace WebAPI.Controllers
     {
         BackupDatabase dbBackup = new BackupDatabase();
         AdminCheck checkAdmin = new AdminCheck();
-        tbAdminsNoPass tbAdminNoPass = new tbAdminsNoPass();
+        AdminsNoPassTb tbAdminNoPass = new AdminsNoPassTb();
 
         // GET: api/<Admins>
         [HttpGet]
-        public IEnumerable<tbAdminsNoPass> Get()
+        public IEnumerable<AdminsNoPassTb> Get()
         {
-            return tbAdminNoPass.CreateAdminsNoPass(dbBackup); 
+            return tbAdminNoPass.GetAdminsNoPass(dbBackup); 
         }
 
         // GET api/<Admins>/5
         [HttpGet("{id}")]
-        public tbAdminsNoPass Get(int id)
+        public AdminsNoPassTb Get(int id)
         {
             return tbAdminNoPass.GetAdminNoPass(id, dbBackup);
         }
 
         // POST api/<Admins>
         [HttpPost]
-        public ActionResult<tbAdmins> Post([FromBody] tbAdmins admin)
+        public ActionResult<AdminsTb> Post([FromBody] AdminsTb admin)
         {
             try
             {
@@ -55,9 +55,9 @@ namespace WebAPI.Controllers
 
         // PUT api/<Admins>/5
         [HttpPut("{id}")]
-        public ActionResult<tbAdmins> Put(int id, [FromBody] tbAdmins admin)
+        public ActionResult<AdminsTb> Put(int id, [FromBody] AdminsTb admin)
         {
-            tbAdmins updatedAdmin = this.dbBackup.Admins.Find(id);
+            AdminsTb updatedAdmin = this.dbBackup.Admins.Find(id);
 
             try
             {

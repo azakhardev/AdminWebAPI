@@ -2,14 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.Tables
-{
-    [Table("ComputersGroups")]
-    public class tbComputersGroups
+{    
+    [Table("GroupsConfigs")]
+    public class GroupsConfigsTb
     {
         public int ID { get; set; }
 
-        public int ComputerID { get; set; }
-
         public int GroupID { get; set; }
+
+        public int ConfigID { get; set; }
     }
 }

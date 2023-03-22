@@ -3,7 +3,7 @@
 namespace WebAPI.Tables
 {
     [Table("Logs")]
-    public class tbLogs
+    public class LogsTb
     {
         public int ID { get; set; }
 

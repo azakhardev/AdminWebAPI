@@ -5,7 +5,7 @@ namespace WebAPI.FormatCheck
 {
     public class LogCheck
     {
-        public void CheckAll(tbLogs logs)
+        public void CheckAll(LogsTb logs)
         {
             DateInsertCheck(logs.Date);
         }

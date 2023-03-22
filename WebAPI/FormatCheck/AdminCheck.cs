@@ -4,7 +4,7 @@ namespace WebAPI.FormatCheck
 {
     public class AdminCheck
     {
-        public void CheckAll(tbAdmins admin)
+        public void CheckAll(AdminsTb admin)
         {
             UsernameCheck(admin.Username);
             PasswordCheck(admin.Password);

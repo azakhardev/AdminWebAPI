@@ -21,42 +21,42 @@ namespace WebAPI.Controllers
         
         // GET: api/<Computers>
         [HttpGet]
-        public IEnumerable<tbComputers> Get()
+        public IEnumerable<ComputersTb> Get()
         { 
             return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.ComputersGroups).Include(x => x.MacAddresses).Include(x => x.ComputersGroups);
         }
 
         // GET api/<Computers>/5
         [HttpGet("{id}")]
-        public tbComputers Get(int id)
+        public ComputersTb Get(int id)
         {            
             return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.ComputersGroups).Include(x => x.MacAddresses).Include(x => x.ComputersGroups).Where(x => x.ID == id).FirstOrDefault();
         }
 
         //GET api/<Computers>/5/<Configs>
         [HttpGet("{id}/Configs")]
-        public List<tbConfigs> GetConfigs(int id)
+        public List<ConfigsTb> GetConfigs(int id)
         {
             return dbBackup.Computers.Find(id).GetConfigs(id, dbBackup);
         }
 
         //GET api/<Computers>/5/<Groups>
         [HttpGet("{id}/Groups")]
-        public List<tbGroups> GetGroups(int id)
+        public List<GroupsTb> GetGroups(int id)
         {
             return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
         }
 
         //GET api/<Computers>/5/Logs
         [HttpGet("{id}/Logs")]
-        public List<tbLogs> GetLogs(int id)
+        public List<LogsTb> GetLogs(int id)
         {
             return dbBackup.Computers.Find(id).GetLogs(id, dbBackup);
         }
 
         //GET api/<Computers>/5/Snapshots
         [HttpGet("{id}/ComputersConfigs")]
-        public List<tbComputersConfigs> GetSnapshots(int id)
+        public List<ComputersConfigsTb> GetSnapshots(int id)
         {
             return dbBackup.Computers.Find(id).GetSnapshots(id, dbBackup);
         }
@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
 
         // POST api/<Computers>
         [HttpPost]
-        public ActionResult<tbComputers> Post([FromBody] tbComputers computer)
+        public ActionResult<ComputersTb> Post([FromBody] ComputersTb computer)
         {
             try
             {
@@ -108,9 +108,9 @@ namespace WebAPI.Controllers
 
         // PUT api/<Computers>/5
         [HttpPut("{id}")]
-        public ActionResult<tbComputers> Put(int id, [FromBody] tbComputers computer)
+        public ActionResult<ComputersTb> Put(int id, [FromBody] ComputersTb computer)
         {
-            tbComputers updatedComputer = this.dbBackup.Computers.Find(id);
+            ComputersTb updatedComputer = this.dbBackup.Computers.Find(id);
 
             try
             {

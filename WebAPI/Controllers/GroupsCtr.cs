@@ -18,35 +18,35 @@ namespace WebAPI.Controllers
 
         // GET: api/<Groups>
         [HttpGet]
-        public IEnumerable<tbGroups> Get()
+        public IEnumerable<GroupsTb> Get()
         {
             return dbBackup.Groups.Include(x => x.GroupsConfigs).Include(x => x.ComputersGroups);
         }
 
         // GET api/<Groups>/5
         [HttpGet("{id}")]
-        public tbGroups Get(int id)
+        public GroupsTb Get(int id)
         {
             return dbBackup.Groups.Include(x => x.GroupsConfigs).Include(x => x.ComputersGroups).Where(x => x.ID == id).FirstOrDefault();
         }
 
         // GET api/<Groups>/5/Computers
         [HttpGet("{id}/Computers")]
-        public List<tbComputers> GetComputers(int id)
+        public List<ComputersTb> GetComputers(int id)
         {
             return dbBackup.Groups.Find(id).GetComputers(id, dbBackup);
         }
 
         // GET api/<Groups>/5/Configs
         [HttpGet("{id}/Configs")]
-        public List<tbConfigs> GetConfigs(int id)
+        public List<ConfigsTb> GetConfigs(int id)
         {
             return dbBackup.Groups.Find(id).GetConfigs(id, dbBackup);
         }
 
         // POST api/<Groups>
         [HttpPost]
-        public ActionResult<tbGroups> Post([FromBody] tbGroups group)
+        public ActionResult<GroupsTb> Post([FromBody] GroupsTb group)
         {
             try
             {
@@ -65,9 +65,9 @@ namespace WebAPI.Controllers
 
         // PUT api/<Groups>/5
         [HttpPut("{id}")]
-        public ActionResult<tbGroups> Put(int id, [FromBody] tbGroups group)
+        public ActionResult<GroupsTb> Put(int id, [FromBody] GroupsTb group)
         {            
-            tbGroups updatedGroup = this.dbBackup.Groups.Find(id);
+            GroupsTb updatedGroup = this.dbBackup.Groups.Find(id);
 
             try
             {

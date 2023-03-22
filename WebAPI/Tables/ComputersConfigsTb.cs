@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebAPI.Tables
 {    
     [Table("ComputersConfigs")]
-    public class tbComputersConfigs
+    public class ComputersConfigsTb
     {
         public int ID { get; set; }
         public int ComputerID { get; set; }
@@ -12,6 +12,6 @@ namespace WebAPI.Tables
         public string Snapshot { get; set; }
 
         [ForeignKey("ComputersConfigsID")]
-        public virtual List<tbLogs> Logs { get; set; }
+        public virtual List<LogsTb> Logs { get; set; }
     }
 }

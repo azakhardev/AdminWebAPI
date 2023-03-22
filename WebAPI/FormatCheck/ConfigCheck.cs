@@ -6,7 +6,7 @@ namespace WebAPI.FormatCheck
 {
     public class ConfigCheck
     {
-        public void CheckAll(tbConfigs config)
+        public void CheckAll(ConfigsTb config)
         {
             ConfigNameCheck(config);
             AlgorithmCheck(config);
@@ -15,35 +15,35 @@ namespace WebAPI.FormatCheck
             ScheduleCheck(config);
         }
 
-        public void ConfigNameCheck(tbConfigs config)
+        public void ConfigNameCheck(ConfigsTb config)
         {
             if (Regex.IsMatch(config.ConfigName, @"^[A-Za-z0-9_]{3,50}$"))
                 return;
             throw new FormatException("Invalid config name.");
         }
 
-        public void AlgorithmCheck(tbConfigs config)
+        public void AlgorithmCheck(ConfigsTb config)
         {
             if (Regex.IsMatch(config.Algorithm, @"^Full$|^Incremental$|^Differential$"))
                 return;
             throw new FormatException("Invalid algorithm. Please selecet Full, Incremental or Differential algorithm.");
         }
 
-        public void MaxPackageAmountCheck(tbConfigs config)
+        public void MaxPackageAmountCheck(ConfigsTb config)
         {
             if (config.MaxPackageAmount <= 10)
                 return;
             throw new FormatException("Maximal package amount can't be greater than 10");
         }
 
-        public void MaxPackageSizeCheck(tbConfigs config)
+        public void MaxPackageSizeCheck(ConfigsTb config)
         {
             if (config.MaxPackageSize <= 10)
                 return;
             throw new FormatException("Maximal package size can't be greater than 10");
         }
 
-        public void ScheduleCheck(tbConfigs config)
+        public void ScheduleCheck(ConfigsTb config)
         {
             if (Regex.IsMatch(config.Schedule, @"^(*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2}) (*|\d{1,2}|\d{1,2}-\d{1,2}|\d{1,2}/\d{1,2}|\d{1,2},\d{1,2})$"))
                 return;

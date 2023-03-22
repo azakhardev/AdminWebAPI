@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace WebAPI.Tables
 {
     [Table("Configs")]
-    public class tbConfigs
+    public class ConfigsTb
     {
         public int ID { get; set; }
 
@@ -26,23 +26,23 @@ namespace WebAPI.Tables
         public bool Zip { get; set; }
 
         [ForeignKey("ConfigID")]
-        public virtual List<tbComputersConfigs> ComputersConfigs { get; set; }
+        public virtual List<ComputersConfigsTb> ComputersConfigs { get; set; }
 
         [ForeignKey("ConfigID")]
-        public virtual List<tbGroupsConfigs> GroupsConfigs { get; set; }
+        public virtual List<GroupsConfigsTb> GroupsConfigs { get; set; }
 
         [ForeignKey("ConfigID")]
-        public virtual List<tbSources> Sources { get; set; }
+        public virtual List<SourcesTb> Sources { get; set; }
 
         [ForeignKey("ConfigID")]
-        public virtual List<tbDestinations> Destinations { get; set; }
+        public virtual List<DestinationsTb> Destinations { get; set; }
 
-        public List<tbComputers> GetComputers(int id, BackupDatabase dbBackup)
+        public List<ComputersTb> GetComputers(int id, BackupDatabase dbBackup)
         {
-            List<tbComputersConfigs> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ID == id).ToList();
-            List<tbComputers> computers = new List<tbComputers>();
+            List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ID == id).ToList();
+            List<ComputersTb> computers = new List<ComputersTb>();
 
-            foreach (tbComputersConfigs computer in tbComputersConfigs)
+            foreach (ComputersConfigsTb computer in tbComputersConfigs)
             {
                 computers.Add(dbBackup.Computers.Find(computer.ComputerID));
             }
@@ -50,12 +50,12 @@ namespace WebAPI.Tables
             return computers;
         }
 
-        public List<tbGroups> GetGroups(int id, BackupDatabase dbBackup)
+        public List<GroupsTb> GetGroups(int id, BackupDatabase dbBackup)
         {
-            List<tbGroupsConfigs> tbGroupsConfigs = dbBackup.GroupsConfigs.Where(x => x.ID == id).ToList();
-            List<tbGroups> groups = new List<tbGroups>();
+            List<GroupsConfigsTb> tbGroupsConfigs = dbBackup.GroupsConfigs.Where(x => x.ID == id).ToList();
+            List<GroupsTb> groups = new List<GroupsTb>();
 
-            foreach (tbGroupsConfigs group in tbGroupsConfigs)
+            foreach (GroupsConfigsTb group in tbGroupsConfigs)
             {
                 groups.Add(dbBackup.Groups.Find(group.GroupID));
             }
@@ -65,10 +65,10 @@ namespace WebAPI.Tables
 
         public List<string> GetSourcePaths(int id, BackupDatabase dbBackup)
         {
-            List<tbSources> tbSources = dbBackup.Sources.Where(x => x.ConfigID == id).ToList();
+            List<SourcesTb> tbSources = dbBackup.Sources.Where(x => x.ConfigID == id).ToList();
             List<string> sources = new List<string>();
 
-            foreach (tbSources source in tbSources)
+            foreach (SourcesTb source in tbSources)
             {
                 sources.Add(source.SourcePath);
             }
@@ -78,10 +78,10 @@ namespace WebAPI.Tables
 
         public List<string> GetDestinationPaths(int id, BackupDatabase dbBackup)
         {
-            List<tbDestinations> tbDestinations = dbBackup.Destinations.Where(x => x.ConfigID == id).ToList();
+            List<DestinationsTb> tbDestinations = dbBackup.Destinations.Where(x => x.ConfigID == id).ToList();
             List<string> destiantions = new List<string>();
 
-            foreach (tbDestinations destination in tbDestinations)
+            foreach (DestinationsTb destination in tbDestinations)
             {
                 destiantions.Add(destination.DestinationPath);
             }

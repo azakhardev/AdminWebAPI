@@ -6,20 +6,20 @@ namespace WebAPI.FormatCheck
 {
     public class ComputerCheck
     {
-        public void CheckAll(tbComputers computer)
+        public void CheckAll(ComputersTb computer)
         {
             CheckComputerName(computer);
             LastBackupChechk(computer);
         }
 
-        public void CheckComputerName(tbComputers computer)
+        public void CheckComputerName(ComputersTb computer)
         {
             if (Regex.IsMatch(computer.ComputerName, @"^[A-Z0-9_]{3,50}$"))
                 return;
             throw new FormatException("Invalid computer name");
         }
 
-        public void LastBackupChechk(tbComputers computer)
+        public void LastBackupChechk(ComputersTb computer)
         {
             if (computer.LastBackup > DateTime.Now)
                 return;

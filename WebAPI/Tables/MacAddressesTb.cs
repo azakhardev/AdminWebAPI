@@ -3,7 +3,7 @@
 namespace WebAPI.Tables
 {
     [Table("MacAddresses")]
-    public class tbMacAddresses
+    public class MacAddressesTb
     {
         public int ID { get; set; }
         public int ComputerID { get; set; }

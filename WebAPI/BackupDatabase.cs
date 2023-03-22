@@ -6,27 +6,27 @@ namespace WebAPI
 {
     public class BackupDatabase : DbContext
     {
-        public DbSet<tbAdmins> Admins { get; set; }
+        public DbSet<AdminsTb> Admins { get; set; }
 
-        public DbSet<tbComputers> Computers { get; set; }
+        public DbSet<ComputersTb> Computers { get; set; }
 
-        public DbSet<tbConfigs> Configs { get; set; }
+        public DbSet<ConfigsTb> Configs { get; set; }
 
-        public DbSet<tbGroups> Groups { get; set; }
+        public DbSet<GroupsTb> Groups { get; set; }
 
-        public DbSet<tbComputersConfigs> ComputersConfigs { get; set; }
+        public DbSet<ComputersConfigsTb> ComputersConfigs { get; set; }
 
-        public DbSet<tbGroupsConfigs> GroupsConfigs { get; set; }
+        public DbSet<GroupsConfigsTb> GroupsConfigs { get; set; }
 
-        public DbSet<tbComputersGroups> ComputersGroups { get; set; }
+        public DbSet<ComputersGroupsTb> ComputersGroups { get; set; }
 
-        public DbSet<tbMacAddresses> MacAdresses { get; set; }
+        public DbSet<MacAddressesTb> MacAdresses { get; set; }
 
-        public DbSet<tbLogs> Logs { get; set; }
+        public DbSet<LogsTb> Logs { get; set; }
 
-        public DbSet<tbDestinations> Destinations { get; set; }
+        public DbSet<DestinationsTb> Destinations { get; set; }
 
-        public DbSet<tbSources> Sources { get; set; }
+        public DbSet<SourcesTb> Sources { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

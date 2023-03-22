@@ -18,28 +18,28 @@ namespace WebAPI.Controllers
         
         // GET: api/<Configs>
         [HttpGet]
-        public IEnumerable<tbConfigs> Get()
+        public IEnumerable<ConfigsTb> Get()
         {
             return dbBackup.Configs.Include(x => x.GroupsConfigs).Include(x => x.ComputersConfigs).Include(x => x.Sources).Include(x => x.Destinations);
         }
 
         // GET api/<Configs>/5
         [HttpGet("{id}")]
-        public tbConfigs Get(int id)
+        public ConfigsTb Get(int id)
         {
             return dbBackup.Configs.Include(x => x.GroupsConfigs).Include(x => x.ComputersConfigs).Include(x => x.Sources).Include(x => x.Destinations).Where(x => x.ID == id).FirstOrDefault();
         }
 
         // GET api/<Configs>/5/Computers
         [HttpGet("{id}/Computers")]
-        public List<tbComputers> GetComputers(int id)
+        public List<ComputersTb> GetComputers(int id)
         {
             return dbBackup.Configs.Find(id).GetComputers(id,dbBackup);
         }
 
         // GET api/<Configs>/5/Groups
         [HttpGet("{id}/Groups")]
-        public List<tbGroups> GetGroups(int id)
+        public List<GroupsTb> GetGroups(int id)
         {
             return dbBackup.Configs.Find(id).GetGroups(id, dbBackup);
         }
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
         
         // POST api/<Configs>
         [HttpPost]
-        public ActionResult<tbConfigs> Post([FromBody] tbConfigs config)
+        public ActionResult<ConfigsTb> Post([FromBody] ConfigsTb config)
         {
             try
             {
@@ -78,9 +78,9 @@ namespace WebAPI.Controllers
 
         // PUT api/<Configs>/5
         [HttpPut("{id}")]
-        public ActionResult<tbConfigs> Put(int id, [FromBody] tbConfigs config)
+        public ActionResult<ConfigsTb> Put(int id, [FromBody] ConfigsTb config)
         {            
-            tbConfigs updatedConfig = dbBackup.Configs.Find(id);
+            ConfigsTb updatedConfig = dbBackup.Configs.Find(id);
 
             try
             {
