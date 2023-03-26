@@ -57,7 +57,15 @@ namespace WebAPI.Controllers
         {
             return dbBackup.Configs.Find(id).GetDestinationPaths(id, dbBackup);
         }
-        
+
+        //GET api/<>/5/Snapshots
+        [HttpGet("{configID}/{computerID}/Snapshot")]
+        public string GetSnapshot(int configID, int computerID)
+        {
+            return dbBackup.Configs.Find(configID).GetSnapshot(configID, computerID, dbBackup);
+        }
+
+
         // POST api/<Configs>
         [HttpPost]
         public ActionResult<ConfigsTb> Post([FromBody] ConfigsTb config)

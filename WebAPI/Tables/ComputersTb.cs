@@ -28,7 +28,7 @@ namespace WebAPI.Tables
 
         public List<string> GetMacAddresses(int id, BackupDatabase dbBackup) 
         {
-            List<MacAddressesTb> tbMacAddresses = dbBackup.MacAdresses.Where(x => x.ComputerID == id).ToList();
+            List<MacAddressesTb> tbMacAddresses = dbBackup.MacAddresses.Where(x => x.ComputerID == id).ToList();
             List<string> macAddresses = new List<string>();
 
             foreach (var item in tbMacAddresses)
@@ -78,14 +78,14 @@ namespace WebAPI.Tables
             return logs;
         }
 
-        public List<ComputersConfigsTb> GetSnapshots(int id, BackupDatabase dbBackup) 
+        public List<string> GetSnapshots(int id, BackupDatabase dbBackup) 
         {
             List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
-            List<ComputersConfigsTb> computersConfigs = new List<ComputersConfigsTb>();
+            List<string> computersConfigs = new List<string>();
 
             foreach (ComputersConfigsTb item in tbComputersConfigs)
             {
-                computersConfigs.Add(dbBackup.ComputersConfigs.Find(item.ComputerID));
+                computersConfigs.Add(item.Snapshot);
             }
 
             return computersConfigs;

@@ -6,10 +6,12 @@ namespace WebAPI.FormatCheck
 {
     public class ComputerCheck
     {
+        BackupDatabase dbBackup = new BackupDatabase();
+
         public void CheckAll(ComputersTb computer)
         {
             CheckComputerName(computer);
-            LastBackupChechk(computer);
+            LastBackupCheck(computer);
         }
 
         public void CheckComputerName(ComputersTb computer)
@@ -19,11 +21,19 @@ namespace WebAPI.FormatCheck
             throw new FormatException("Invalid computer name");
         }
 
-        public void LastBackupChechk(ComputersTb computer)
+        public void LastBackupCheck(ComputersTb computer)
         {
             if (computer.LastBackup > DateTime.Now)
                 return;
             throw new FormatException("Last backup cant be in the future");
+        }
+
+        public void CheckConfigID(ComputersTb computer) 
+        {
+            if (dbBackup.Configs.Find(computer.ID) != null) 
+            {
+
+            }
         }
     }
 }

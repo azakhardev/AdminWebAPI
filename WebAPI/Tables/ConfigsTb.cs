@@ -89,5 +89,14 @@ namespace WebAPI.Tables
             return destiantions;
         }
 
+
+        public string GetSnapshot(int configID, int computerID, BackupDatabase dbBackup)
+        {
+            ComputersConfigsTb tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ConfigID == configID).Where(x => x.ComputerID == computerID).FirstOrDefault();
+            string computersConfigs = tbComputersConfigs.Snapshot;
+
+            return computersConfigs;
+        }
+
     }
 }

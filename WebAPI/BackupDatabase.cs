@@ -20,7 +20,7 @@ namespace WebAPI
 
         public DbSet<ComputersGroupsTb> ComputersGroups { get; set; }
 
-        public DbSet<MacAddressesTb> MacAdresses { get; set; }
+        public DbSet<MacAddressesTb> MacAddresses { get; set; }
 
         public DbSet<LogsTb> Logs { get; set; }
 

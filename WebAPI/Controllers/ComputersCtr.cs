@@ -54,9 +54,16 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Find(id).GetLogs(id, dbBackup);
         }
 
+        ////GET api/<Computers>/5/ComputersConfigs
+        //[HttpGet("{id}/ComputersConfigs")]
+        //public List<string> GetComputersCofnigs(int id)
+        //{
+        //    return dbBackup.Computers.Find(id).GetSnapshots(id, dbBackup);
+        //}
+
         //GET api/<Computers>/5/Snapshots
-        [HttpGet("{id}/ComputersConfigs")]
-        public List<ComputersConfigsTb> GetSnapshots(int id)
+        [HttpGet("{id}/Snapshots")]
+        public List<string> GetSnapshots(int id)
         {
             return dbBackup.Computers.Find(id).GetSnapshots(id, dbBackup);
         }
@@ -143,7 +150,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}/MacAddress")]
         public void DeleteMacAddress(int id)
         {
-            dbBackup.MacAdresses.Remove(dbBackup.MacAdresses.Where(x => x.ComputerID == id).FirstOrDefault());
+            dbBackup.MacAddresses.Remove(dbBackup.MacAddresses.Where(x => x.ComputerID == id).FirstOrDefault());
         }
     }
 }
