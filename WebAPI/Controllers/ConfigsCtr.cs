@@ -46,14 +46,14 @@ namespace WebAPI.Controllers
 
         // GET api/<Configs>/5/Sources
         [HttpGet("{id}/Sources")]
-        public List<string> GetSources(int id)
+        public List<SourcesTb> GetSources(int id)
         {
             return dbBackup.Configs.Find(id).GetSourcePaths(id, dbBackup);
         }
 
-        // GET api/<Configs>/5/Desttinations
+        // GET api/<Configs>/5/Destinations
         [HttpGet("{id}/Destinations")]
-        public List<string> GetDestinations(int id)
+        public List<DestinationsTb> GetDestinations(int id)
         {
             return dbBackup.Configs.Find(id).GetDestinationPaths(id, dbBackup);
         }

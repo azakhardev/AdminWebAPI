@@ -63,30 +63,14 @@ namespace WebAPI.Tables
             return groups;
         }
 
-        public List<string> GetSourcePaths(int id, BackupDatabase dbBackup)
+        public List<SourcesTb> GetSourcePaths(int id, BackupDatabase dbBackup)
         {
-            List<SourcesTb> tbSources = dbBackup.Sources.Where(x => x.ConfigID == id).ToList();
-            List<string> sources = new List<string>();
-
-            foreach (SourcesTb source in tbSources)
-            {
-                sources.Add(source.SourcePath);
-            }
-
-            return sources;
+            return dbBackup.Sources.Where(x => x.ConfigID == id).ToList();
         }
 
-        public List<string> GetDestinationPaths(int id, BackupDatabase dbBackup)
+        public List<DestinationsTb> GetDestinationPaths(int id, BackupDatabase dbBackup)
         {
-            List<DestinationsTb> tbDestinations = dbBackup.Destinations.Where(x => x.ConfigID == id).ToList();
-            List<string> destiantions = new List<string>();
-
-            foreach (DestinationsTb destination in tbDestinations)
-            {
-                destiantions.Add(destination.DestinationPath);
-            }
-
-            return destiantions;
+            return dbBackup.Destinations.Where(x => x.ConfigID == id).ToList();
         }
 
 
