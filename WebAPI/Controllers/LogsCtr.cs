@@ -48,32 +48,6 @@ namespace WebAPI.Controllers
             return log;
         }
 
-        // PUT api/<Logs>/5
-        [HttpPut("{id}")]
-        public ActionResult<LogsTb> Put(int id, [FromBody] LogsTb log)
-        {
-            
-            //DateTime newDate, bool newError, string newMessage
-            LogsTb updatedLog = this.dbBackup.Logs.Find(id);
-
-            try
-            {
-                checkLog.CheckAll(log);
-            }
-            catch (FormatException ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-            }
-
-
-            updatedLog.Date = log.Date;
-            updatedLog.Errors = log.Errors;
-            updatedLog.Message = log.Message;
-            dbBackup.SaveChanges();
-
-            return log;
-        }
-
         // DELETE api/<Logs>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
