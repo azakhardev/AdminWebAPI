@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
 
         // POST api/<Computers>
         [HttpPost]
-        public ActionResult<ComputersTb> Post([FromBody] ComputersTb computer)
+        public ActionResult<int> Post([FromBody] ComputersTb computer)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace WebAPI.Controllers
             dbBackup.Computers.Add(computer);
             dbBackup.SaveChanges();
 
-            return computer;
+            return computer.ID;
         }
 
         //// POST api/<Computers>
