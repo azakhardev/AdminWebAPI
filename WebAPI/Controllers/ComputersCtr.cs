@@ -95,9 +95,9 @@ namespace WebAPI.Controllers
             return computer.ID;
         }
 
-        // POST api/<Computers>/Snapshot/computerId/configId
-        [HttpPut("Snapshot/{computerId}/{configId}")]
-        public ActionResult<string> PostSnapshot(int computerId, int configId, string snapshot)
+        // POST api/<Configs>/Snapshot/computerId/configId
+        [HttpPut("Snapshot/{configId}/{computerId}")]
+        public ActionResult<string> PostSnapshot(int configId, int computerId, string snapshot)
         { 
             ComputersConfigsTb computersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).FirstOrDefault();
             computersConfigs.Snapshot = snapshot;
