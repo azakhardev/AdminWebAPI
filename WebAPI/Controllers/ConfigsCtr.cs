@@ -65,7 +65,6 @@ namespace WebAPI.Controllers
             return dbBackup.Configs.Find(configID).GetSnapshot(configID, computerID, dbBackup);
         }
 
-
         // POST api/<Configs>
         [HttpPost]
         public ActionResult<ConfigsTb> Post([FromBody] ConfigsTb config)

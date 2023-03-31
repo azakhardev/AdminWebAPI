@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using System.Collections.Generic;
 using System.Globalization;
@@ -94,26 +95,17 @@ namespace WebAPI.Controllers
             return computer.ID;
         }
 
-        //// POST api/<Computers>
-        //[HttpPost]
-        //public ActionResult<tbConfigs> PostConfig([FromBody] tbConfigs config)
-        //{
-        //    try
-        //    {
-        //        CheckCo
-        //    }
-        //    catch (FormatException ex)
-        //    {
+        // POST api/<Computers>/Snapshot/computerId/configId
+        [HttpPut("Snapshot/{computerId}/{configId}")]
+        public ActionResult<string> PostSnapshot(int computerId, int configId, string snapshot)
+        { 
+            ComputersConfigsTb computersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).FirstOrDefault();
+            computersConfigs.Snapshot = snapshot;
+            dbBackup.SaveChanges();
 
-        //    }
+            return snapshot;
+        }
 
-        //    dbBackup.Configs.Add();
-        //    dbBackup.SaveChanges();
-
-        //    return computer;
-        //}
-
-        // PUT api/<Computers>/5
         [HttpPut("{id}")]
         public ActionResult<ComputersTb> Put(int id, [FromBody] ComputersTb computer)
         {
