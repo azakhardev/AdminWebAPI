@@ -39,7 +39,7 @@ namespace WebAPI.Tables
 
         public List<ComputersTb> GetComputers(int id, BackupDatabase dbBackup)
         {
-            List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ID == id).ToList();
+            List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ConfigID == id).ToList();
             List<ComputersTb> computers = new List<ComputersTb>();
 
             foreach (ComputersConfigsTb computer in tbComputersConfigs)
@@ -73,7 +73,6 @@ namespace WebAPI.Tables
             return dbBackup.Destinations.Where(x => x.ConfigID == id).ToList();
         }
 
-
         public string GetSnapshot(int configID, int computerID, BackupDatabase dbBackup)
         {
             ComputersConfigsTb tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ConfigID == configID).Where(x => x.ComputerID == computerID).FirstOrDefault();
@@ -81,6 +80,5 @@ namespace WebAPI.Tables
 
             return computersConfigs;
         }
-
     }
 }

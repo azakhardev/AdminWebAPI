@@ -34,14 +34,14 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.ComputersGroups).Include(x => x.MacAddresses).Include(x => x.ComputersGroups).Where(x => x.ID == id).FirstOrDefault();
         }
 
-        //GET api/<Computers>/5/<Configs>
-        [HttpGet("{id}/Configs")]
-        public List<ConfigsTb> GetConfigs(int id)
+        //GET api/<Computers>/5/Configs
+        [HttpGet("{computerId}/Configs")]
+        public List<ConfigsTb> GetConfigs(int computerId)
         {
-            return dbBackup.Computers.Find(id).GetConfigs(id, dbBackup);
+            return dbBackup.Computers.Find(computerId).GetConfigs(computerId, dbBackup);
         }
 
-        //GET api/<Computers>/5/<Groups>
+        //GET api/<Computers>/5/Groups
         [HttpGet("{id}/Groups")]
         public List<GroupsTb> GetGroups(int id)
         {
@@ -69,12 +69,12 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Find(id).GetSnapshots(id, dbBackup);
         }
 
-        //GET api/<Computers>/5/5/SnapshotVersion
-        [HttpGet("{computerId}/{configId}/SnapshotVersion")]
-        public int GetSnapshotVersion(int computerId, int configId)
-        {
-            return dbBackup.Computers.Find(computerId).GetSnapshotVersion(computerId, configId, dbBackup);
-        }
+        ////GET api/<Computers>/5/5/SnapshotVersion
+        //[HttpGet("{computerId}/{configId}/SnapshotVersion")]
+        //public int GetSnapshotVersion(int computerId, int configId)
+        //{
+        //    return dbBackup.Computers.Find(computerId).GetSnapshotVersion(computerId, configId, dbBackup);
+        //}
 
         //GET api/<Computers>/5/<MacAdresses>
         [HttpGet("{id}/MacAddresses")]

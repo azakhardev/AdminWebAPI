@@ -42,9 +42,9 @@ namespace WebAPI.Tables
             return macAddresses;
         }
 
-        public List<ConfigsTb> GetConfigs(int id, BackupDatabase dbBackup)
+        public List<ConfigsTb> GetConfigs(int computerId, BackupDatabase dbBackup)
         {
-            List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
+            List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).ToList();
             List<ConfigsTb> configs = new List<ConfigsTb>();
 
             foreach (ComputersConfigsTb config in tbComputersConfigs)
@@ -100,9 +100,9 @@ namespace WebAPI.Tables
             return computersConfigs;
         }
 
-        public int GetSnapshotVersion(int computerId,int configId,BackupDatabase dbBackup)
-        {
-            return dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).Single().SnapshotVersion;
-        }
+        //public int GetSnapshotVersion(int computerId,int configId,BackupDatabase dbBackup)
+        //{
+        //    return dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).Single().SnapshotVersion;
+        //}
     }
 }
