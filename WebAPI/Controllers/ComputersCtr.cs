@@ -49,10 +49,10 @@ namespace WebAPI.Controllers
         }
 
         //GET api/<Computers>/5/Logs
-        [HttpGet("{id}/Logs")]
-        public List<LogsTb> GetLogs(int id)
+        [HttpGet("{computerId}/{configId}/Logs")]
+        public List<LogsTb> GetLogs(int computerId, int configId)
         {
-            return dbBackup.Computers.Find(id).GetLogs(id, dbBackup);
+            return dbBackup.Computers.Find(computerId).GetLogs(computerId, configId, dbBackup);
         }
 
         ////GET api/<Computers>/5/ComputersConfigs
@@ -67,6 +67,13 @@ namespace WebAPI.Controllers
         public List<string> GetSnapshots(int id)
         {
             return dbBackup.Computers.Find(id).GetSnapshots(id, dbBackup);
+        }
+
+        //GET api/<Computers>/5/5/SnapshotVersion
+        [HttpGet("{computerId}/{configId}/SnapshotVersion")]
+        public int GetSnapshotVersion(int computerId, int configId)
+        {
+            return dbBackup.Computers.Find(computerId).GetSnapshotVersion(computerId, configId, dbBackup);
         }
 
         //GET api/<Computers>/5/<MacAdresses>

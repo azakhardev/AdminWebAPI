@@ -19,18 +19,18 @@ namespace WebAPI.Controllers
     {
         BackupDatabase dbBackup = new BackupDatabase();
         AdminCheck checkAdmin = new AdminCheck();
-        AdminsNoPassTb tbAdminNoPass = new AdminsNoPassTb();
+        AdminsNoPass tbAdminNoPass = new AdminsNoPass();
 
         // GET: api/<Admins>
         [HttpGet]
-        public IEnumerable<AdminsNoPassTb> Get()
+        public IEnumerable<AdminsNoPass> Get()
         {
             return tbAdminNoPass.GetAdminsNoPass(dbBackup); 
         }
 
         // GET api/<Admins>/5
         [HttpGet("{id}")]
-        public AdminsNoPassTb Get(int id)
+        public AdminsNoPass Get(int id)
         {
             return tbAdminNoPass.GetAdminNoPass(id, dbBackup);
         }

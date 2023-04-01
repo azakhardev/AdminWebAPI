@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using MySql.EntityFrameworkCore.Extensions;
 using Org.BouncyCastle.Tls.Crypto;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebAPI.Tables.Help_Tables;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace WebAPI.Tables
@@ -27,7 +29,7 @@ namespace WebAPI.Tables
         [ForeignKey("ComputerID")]
         public virtual List<ComputersGroupsTb> ComputersGroups { get; set; }
 
-        public List<string> GetMacAddresses(int id, BackupDatabase dbBackup) 
+        public List<string> GetMacAddresses(int id, BackupDatabase dbBackup)
         {
             List<MacAddressesTb> tbMacAddresses = dbBackup.MacAddresses.Where(x => x.ComputerID == id).ToList();
             List<string> macAddresses = new List<string>();
@@ -42,11 +44,11 @@ namespace WebAPI.Tables
 
         public List<ConfigsTb> GetConfigs(int id, BackupDatabase dbBackup)
         {
-            List <ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
-            List <ConfigsTb> configs = new List<ConfigsTb>();
+            List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
+            List<ConfigsTb> configs = new List<ConfigsTb>();
 
-            foreach (ComputersConfigsTb config in tbComputersConfigs) 
-            {                
+            foreach (ComputersConfigsTb config in tbComputersConfigs)
+            {
                 configs.Add(dbBackup.Configs.Find(config.ConfigID));
             }
 
@@ -66,20 +68,26 @@ namespace WebAPI.Tables
             return groups;
         }
 
-        public List<LogsTb> GetLogs(int id, BackupDatabase dbBackup) 
+        public List<LogsTb> GetLogs(int computerId, int configId, BackupDatabase dbBackup)
         {
-            List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
+            ComputersConfigsTb tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId && x.ConfigID == configId).Single();
             List<LogsTb> logs = new List<LogsTb>();
 
-            foreach (ComputersConfigsTb log in tbComputersConfigs)
-            {
-                logs.Add(dbBackup.Logs.Find(log.ComputerID));
-            }
+            //LogsTb originalLog = dbBackup.Logs.Find(log.ComputerID);
+            //LogsForPC pcLog = new LogsForPC() {ComputerID = originalLog.ComputersConfigsID };
+
+            logs = dbBackup.Logs.Where(x => x.ComputersConfigsID == tbComputersConfigs.ID).ToList();
+
+            //List < LogsForPC >
+            //foreach (var item in logs)
+            //{
+
+            //}
 
             return logs;
         }
 
-        public List<string> GetSnapshots(int id, BackupDatabase dbBackup) 
+        public List<string> GetSnapshots(int id, BackupDatabase dbBackup)
         {
             List<ComputersConfigsTb> tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == id).ToList();
             List<string> computersConfigs = new List<string>();
@@ -90,6 +98,11 @@ namespace WebAPI.Tables
             }
 
             return computersConfigs;
+        }
+
+        public int GetSnapshotVersion(int computerId,int configId,BackupDatabase dbBackup)
+        {
+            return dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).Single().SnapshotVersion;
         }
     }
 }
