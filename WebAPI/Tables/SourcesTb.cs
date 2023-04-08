@@ -13,8 +13,6 @@ namespace WebAPI.Tables
 
         public string FileName { get; set; }
 
-        public DateTime CreationDate { get; set; }
-
         public DateTime UpdateDate { get; set;}
 
         //[ForeignKey("ConfigID")]

@@ -21,13 +21,13 @@ namespace WebAPI.Tables
         public string BackupStatus { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual List<MacAddressesTb> MacAddresses { get; set; }
+        public virtual List<MacAddressesTb>? MacAddresses { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual List<ComputersConfigsTb> ComputersConfigs { get; set; }
+        public virtual List<ComputersConfigsTb>? ComputersConfigs { get; set; }
 
         [ForeignKey("ComputerID")]
-        public virtual List<ComputersGroupsTb> ComputersGroups { get; set; }
+        public virtual List<ComputersGroupsTb>? ComputersGroups { get; set; }
 
         public List<string> GetMacAddresses(int id, BackupDatabase dbBackup)
         {

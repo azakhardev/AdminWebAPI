@@ -16,14 +16,14 @@ namespace WebAPI.FormatCheck
 
         public void CheckComputerName(ComputersTb computer)
         {
-            if (Regex.IsMatch(computer.ComputerName, @"^[A-Z0-9_]{3,50}$"))
+            if (Regex.IsMatch(computer.ComputerName, @"^[^/\\*?\"":<>|]{3,50}$"))
                 return;
             throw new FormatException("Invalid computer name");
         }
 
         public void LastBackupCheck(ComputersTb computer)
         {
-            if (computer.LastBackup > DateTime.Now)
+            if (computer.LastBackup <= DateTime.Now)
                 return;
             throw new FormatException("Last backup cant be in the future");
         }
