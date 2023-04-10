@@ -29,6 +29,13 @@ namespace WebAPI.Controllers
             return dbBackup.Logs.Find(id);
         }
 
+        [HttpGet("{computerId}/{configId}")]
+        public int GetComputersConfigs(int computerId, int configId) 
+        {
+            int computersConfigsId = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).FirstOrDefault().ID;
+            return computersConfigsId;
+        }
+
         // POST api/<Logs>
         [HttpPost]
         public ActionResult<LogsTb> Post([FromBody] LogsTb log)
