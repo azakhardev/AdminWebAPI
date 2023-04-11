@@ -104,14 +104,14 @@ namespace WebAPI.Controllers
         }
 
         // PUT api/<Computers>/Snapshot/configId/computerId
-        [HttpPut("Snapshot/{configId}/{computerId}")]
-        public ActionResult<string> PutSnapshot(int configId, int computerId, string snapshot)
+        [HttpPut("Snapshot")]
+        public ActionResult<string> PutSnapshot([FromBody] SnapshotPut snapshot)
         { 
-            ComputersConfigsTb computersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).FirstOrDefault();
-            computersConfigs.Snapshot = snapshot;
+            ComputersConfigsTb computersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == snapshot.ComputerID).Where(x => x.ConfigID == snapshot.ConfigID).FirstOrDefault();
+            computersConfigs.Snapshot = snapshot.Snapshot;
             dbBackup.SaveChanges();
 
-            return snapshot;
+            return snapshot.Snapshot;
         }
 
         [HttpPut("{id}")]
