@@ -8,6 +8,10 @@ namespace WebAPI.Tables
         public string GroupName { get; set; }
         public string Description { get; set; }
 
+        public DateTime LastBackup { get; set; }
+
+        public string BackupStatus { get; set; }
+
         [ForeignKey("GroupID")]
         public virtual List<ComputersGroupsTb>? ComputersGroups { get; set; }
 
