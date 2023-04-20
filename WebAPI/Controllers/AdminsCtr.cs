@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using WebAPI.FormatCheck;
+using WebAPI.JWTAuthorization;
 using WebAPI.Tables;
 using WebAPI.Tables.Help_Tables;
 
@@ -15,6 +16,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/Admins")]
     [ApiController]
+    //[AuthorizeAdmin]
     public class AdminsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
