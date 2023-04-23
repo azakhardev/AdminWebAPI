@@ -27,14 +27,14 @@ namespace WebAPI.JWTAuthorization
                 {
                     string token = JwtBuilder.Create()
                     .WithAlgorithm(new HMACSHA256Algorithm())
-                    .WithSecret("skuper-secret-foo")
+                    .WithSecret("super-secret-foo")
                     .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
                     .AddClaim("username", admin.Username)
                     .AddClaim("email", admin.Email)
                     .AddClaim("active", admin.Active)
                     .Encode();
 
-                    return Ok(new { token });
+                    return Ok(new { token = token });
                 }
                 return Unauthorized(new { message = "Wrong password" });
             }

@@ -7,9 +7,7 @@ namespace WebAPI.Tables
         public int ID { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
-
         public DateTime LastBackup { get; set; }
-
         public string BackupStatus { get; set; }
 
         [ForeignKey("GroupID")]
