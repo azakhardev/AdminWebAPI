@@ -140,17 +140,10 @@ namespace WebAPI.Controllers
 
         // DELETE api/<Computers>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public void Delete(int id)
         {
-            ComputersTb computer = dbBackup.Computers.Find(id);
-
-            if (computer == null)
-                return NotFound(); 
-            
-            dbBackup.Computers.Remove(computer);
+            dbBackup.Computers.Remove(dbBackup.Computers.Find(id));
             dbBackup.SaveChanges();
-
-            return NoContent();
         }
 
         // DELETE api/<Computers>/5/MacAddress
@@ -158,6 +151,7 @@ namespace WebAPI.Controllers
         public void DeleteMacAddress(int id)
         {
             dbBackup.MacAddresses.Remove(dbBackup.MacAddresses.Where(x => x.ComputerID == id).FirstOrDefault());
+            dbBackup.SaveChanges();
         }
     }
 }

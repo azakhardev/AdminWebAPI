@@ -90,6 +90,7 @@ namespace WebAPI.Controllers
         public void Delete(int id)
         {
             dbBackup.Groups.Remove(dbBackup.Groups.Find(id));
+            dbBackup.SaveChanges();
         }
     }
 }

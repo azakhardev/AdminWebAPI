@@ -129,6 +129,7 @@ namespace WebAPI.Controllers
         public void DeleteDestination(int id)
         {
             dbBackup.Destinations.Remove(dbBackup.Destinations.Where(x => x.ConfigID == id).FirstOrDefault());
+            dbBackup.SaveChanges();
         }
     }
 }
