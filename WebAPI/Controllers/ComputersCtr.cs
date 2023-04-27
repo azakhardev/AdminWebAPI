@@ -128,11 +128,16 @@ namespace WebAPI.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
+            if(computer.ComputerName != null)
             updatedComputer.ComputerName = computer.ComputerName;
-            updatedComputer.BackupStatus = computer.BackupStatus;
-            updatedComputer.ComputerStatus = computer.ComputerStatus;
-            updatedComputer.Description = computer.Description;
-            updatedComputer.LastBackup = computer.LastBackup;
+            if (computer.BackupStatus != null)
+                updatedComputer.BackupStatus = computer.BackupStatus;
+            if (computer.ComputerStatus != null)
+                updatedComputer.ComputerStatus = computer.ComputerStatus;
+            if (computer.Description != null)
+               updatedComputer.Description = computer.Description;
+            if (computer.LastBackup != null)
+               updatedComputer.LastBackup = computer.LastBackup;
             dbBackup.SaveChanges();
 
             return updatedComputer;
