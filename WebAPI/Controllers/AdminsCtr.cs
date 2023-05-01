@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<AdminsNoPass> Get()
         {
-            return tbAdminNoPass.GetAdminsNoPass(dbBackup); 
+            return tbAdminNoPass.GetAdminsNoPass(dbBackup);
         }
 
         // GET api/<Admins>/5
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
-            
+
             dbBackup.Admins.Add(admin);
             dbBackup.SaveChanges();
             return admin;
@@ -68,14 +68,20 @@ namespace WebAPI.Controllers
             catch (FormatException ex)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-            }            
-            
-            updatedAdmin.Username = admin.Username;
-            updatedAdmin.Password = admin.Password;
-            updatedAdmin.Schedule = admin.Schedule;
-            updatedAdmin.Email = admin.Email;
-            updatedAdmin.Description = admin.Description;
-            updatedAdmin.Active = admin.Active;
+            }
+
+            if (updatedAdmin.Username != null)
+                updatedAdmin.Username = admin.Username;
+            if (updatedAdmin.Password != null)
+                updatedAdmin.Password = admin.Password;
+            if (updatedAdmin.Schedule != null)
+                updatedAdmin.Schedule = admin.Schedule;
+            if (updatedAdmin.Email != null)
+                updatedAdmin.Email = admin.Email;
+            if (updatedAdmin.Description != null)
+                updatedAdmin.Description = admin.Description;
+            if (updatedAdmin.Active != null)
+                updatedAdmin.Active = admin.Active;
 
             this.dbBackup.SaveChanges();
             return updatedAdmin;
