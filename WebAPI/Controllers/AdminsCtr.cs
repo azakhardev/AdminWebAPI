@@ -70,17 +70,17 @@ namespace WebAPI.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
-            if (updatedAdmin.Username != null)
+            if (admin.Username != null)
                 updatedAdmin.Username = admin.Username;
-            if (updatedAdmin.Password != null)
+            if (admin.Password != null)
                 updatedAdmin.Password = admin.Password;
-            if (updatedAdmin.Schedule != null)
+            if (admin.Schedule != null)
                 updatedAdmin.Schedule = admin.Schedule;
-            if (updatedAdmin.Email != null)
+            if (admin.Email != null)
                 updatedAdmin.Email = admin.Email;
-            if (updatedAdmin.Description != null)
+            if (admin.Description != null)
                 updatedAdmin.Description = admin.Description;
-            if (updatedAdmin.Active != null)
+            if (admin.Active != null)
                 updatedAdmin.Active = admin.Active;
 
             this.dbBackup.SaveChanges();
