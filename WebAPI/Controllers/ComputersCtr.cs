@@ -135,7 +135,7 @@ namespace WebAPI.Controllers
                 updatedComputer.ComputersGroups = computer.ComputersGroups;
             if (computer.MacAddresses != null)
                 updatedComputer.MacAddresses = computer.MacAddresses;
-            dbBackup.SaveChanges();
+            
 
             try
             {
@@ -146,6 +146,7 @@ namespace WebAPI.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
+            dbBackup.SaveChanges();
             return updatedComputer;
         }
 

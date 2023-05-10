@@ -69,15 +69,6 @@ namespace WebAPI.Controllers
         {
             GroupsTb updatedGroup = this.dbBackup.Groups.Find(id);
 
-            try
-            {
-                checkGroup.CheckAll(group);
-            }
-            catch (FormatException ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-            }
-
             if (group.GroupName != null)
                 updatedGroup.GroupName = group.GroupName;
             if (group.Description != null)
@@ -86,6 +77,15 @@ namespace WebAPI.Controllers
                 updatedGroup.LastBackup = group.LastBackup;
             if (group.BackupStatus != null)
                 updatedGroup.BackupStatus = group.BackupStatus;
+
+            try
+            {
+                checkGroup.CheckAll(updatedGroup);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
 
             dbBackup.SaveChanges();
             return updatedGroup;

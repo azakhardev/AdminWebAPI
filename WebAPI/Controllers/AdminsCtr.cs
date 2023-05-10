@@ -61,15 +61,6 @@ namespace WebAPI.Controllers
         {
             AdminsTb updatedAdmin = this.dbBackup.Admins.Find(id);
 
-            try
-            {
-                checkAdmin.CheckAll(admin);
-            }
-            catch (FormatException ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-            }
-
             if (admin.Username != null)
                 updatedAdmin.Username = admin.Username;
             if (admin.Password != null)
@@ -82,6 +73,15 @@ namespace WebAPI.Controllers
                 updatedAdmin.Description = admin.Description;
             if (admin.Active != null)
                 updatedAdmin.Active = admin.Active;
+
+            try
+            {
+                checkAdmin.CheckAll(updatedAdmin);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
 
             this.dbBackup.SaveChanges();
             return updatedAdmin;

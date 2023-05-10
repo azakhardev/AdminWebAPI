@@ -89,14 +89,7 @@ namespace WebAPI.Controllers
         {
             ConfigsTb updatedConfig = dbBackup.Configs.Find(id);
 
-            try
-            {
-                checkConfig.CheckAll(config);
-            }
-            catch (FormatException ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-            }
+
             if (config.ConfigName != null)
                 updatedConfig.ConfigName = config.ConfigName;
             if (config.CreationDate != null)
@@ -112,8 +105,16 @@ namespace WebAPI.Controllers
             if (config.Zip != null)
                 updatedConfig.Zip = config.Zip;
 
-            dbBackup.SaveChanges();
+            try
+            {
+                checkConfig.CheckAll(updatedConfig);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
 
+            dbBackup.SaveChanges();
             return updatedConfig;
         }
 
