@@ -14,11 +14,11 @@ namespace WebAPI.Tables
     public class ComputersTb
     {
         public int ID { get; set; }
-        public string ComputerName { get; set; }
-        public string ComputerStatus { get; set; }
-        public string Description { get; set; }
-        public DateTime LastBackup { get; set; }
-        public string BackupStatus { get; set; }
+        public string? ComputerName { get; set; }
+        public string? ComputerStatus { get; set; }
+        public string? Description { get; set; }
+        public DateTime? LastBackup { get; set; }
+        public string? BackupStatus { get; set; }
 
         [ForeignKey("ComputerID")]
         public virtual List<MacAddressesTb>? MacAddresses { get; set; }

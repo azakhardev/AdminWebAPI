@@ -20,18 +20,18 @@ namespace WebAPI.Controllers
     {
         BackupDatabase dbBackup = new BackupDatabase();
         ComputerCheck checkComputer = new ComputerCheck();
-        
+
         // GET: api/<Computers>
         [HttpGet]
         public IEnumerable<ComputersTb> Get()
-        { 
+        {
             return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.ComputersGroups).Include(x => x.MacAddresses).Include(x => x.ComputersGroups);
         }
 
         // GET api/<Computers>/5
         [HttpGet("{id}")]
         public ComputersTb Get(int id)
-        {            
+        {
             return dbBackup.Computers.Include(x => x.ComputersConfigs).Include(x => x.ComputersGroups).Include(x => x.MacAddresses).Include(x => x.ComputersGroups).Where(x => x.ID == id).FirstOrDefault();
         }
 
@@ -106,7 +106,7 @@ namespace WebAPI.Controllers
         // PUT api/<Computers>/Snapshot/configId/computerId
         [HttpPut("Snapshot")]
         public ActionResult<string> PutSnapshot([FromBody] SnapshotPut snapshot)
-        { 
+        {
             ComputersConfigsTb computersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == snapshot.ComputerID).Where(x => x.ConfigID == snapshot.ConfigID).FirstOrDefault();
             computersConfigs.Snapshot = snapshot.Snapshot;
             dbBackup.SaveChanges();
@@ -119,26 +119,32 @@ namespace WebAPI.Controllers
         {
             ComputersTb updatedComputer = this.dbBackup.Computers.Find(id);
 
-            try
-            {
-                checkComputer.CheckAll(computer);
-            }
-            catch (FormatException ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-            }
-
-            if(computer.ComputerName != null)
-            updatedComputer.ComputerName = computer.ComputerName;
+            if (computer.ComputerName != null)
+                updatedComputer.ComputerName = computer.ComputerName;
             if (computer.BackupStatus != null)
                 updatedComputer.BackupStatus = computer.BackupStatus;
             if (computer.ComputerStatus != null)
                 updatedComputer.ComputerStatus = computer.ComputerStatus;
             if (computer.Description != null)
-               updatedComputer.Description = computer.Description;
+                updatedComputer.Description = computer.Description;
             if (computer.LastBackup != null)
-               updatedComputer.LastBackup = computer.LastBackup;
+                updatedComputer.LastBackup = computer.LastBackup;
+            if (computer.ComputersConfigs != null)
+                updatedComputer.ComputersConfigs = computer.ComputersConfigs;
+            if (computer.ComputersGroups != null)
+                updatedComputer.ComputersGroups = computer.ComputersGroups;
+            if (computer.MacAddresses != null)
+                updatedComputer.MacAddresses = computer.MacAddresses;
             dbBackup.SaveChanges();
+
+            try
+            {
+                checkComputer.CheckAll(updatedComputer);
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
 
             return updatedComputer;
         }
