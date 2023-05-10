@@ -7,7 +7,7 @@ namespace WebAPI.Tables
     {
         public int ID { get; set; }
         public int ConfigID { get; set; }
-        public string DestinationPath { get; set; }
+        public string DestinationPath? { get; set; }
 
         //[ForeignKey("ConfigID")]
         //public virtual tbConfigs Configs { get; set; }

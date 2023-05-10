@@ -11,19 +11,19 @@ namespace WebAPI.Tables
     {
         public int ID { get; set; }
 
-        public string ConfigName { get; set; }
+        public string? ConfigName { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
-        public string Algorithm { get; set; }
+        public string? Algorithm { get; set; }
 
-        public int MaxPackageAmount { get; set; }
+        public int? MaxPackageAmount { get; set; }
 
-        public int MaxPackageSize { get; set; }
+        public int? MaxPackageSize { get; set; }
 
-        public string Schedule { get; set; }
+        public string? Schedule { get; set; }
 
-        public bool Zip { get; set; }
+        public bool? Zip { get; set; }
 
         [ForeignKey("ConfigID")]
         public virtual List<ComputersConfigsTb>? ComputersConfigs { get; set; }

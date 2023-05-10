@@ -13,7 +13,7 @@ namespace WebAPI.Tables
 
         public bool Errors { get; set; }
 
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
         //[ForeignKey("ComputerConfigsID")]
         //public virtual tbComputersConfigs ComputersConfigs { get; set; }

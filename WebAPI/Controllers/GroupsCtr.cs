@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
         // PUT api/<Groups>/5
         [HttpPut("{id}")]
         public ActionResult<GroupsTb> Put(int id, [FromBody] GroupsTb group)
-        {            
+        {
             GroupsTb updatedGroup = this.dbBackup.Groups.Find(id);
 
             try
@@ -78,10 +78,16 @@ namespace WebAPI.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
-            updatedGroup.GroupName = group.GroupName;
-            updatedGroup.Description = group.Description;
-            dbBackup.SaveChanges();
+            if (group.GroupName != null)
+                updatedGroup.GroupName = group.GroupName;
+            if (group.Description != null)
+                updatedGroup.Description = group.Description;
+            if (group.LastBackup != null)
+                updatedGroup.LastBackup = group.LastBackup;
+            if (group.BackupStatus != null)
+                updatedGroup.BackupStatus = group.BackupStatus;
 
+            dbBackup.SaveChanges();
             return updatedGroup;
         }
 

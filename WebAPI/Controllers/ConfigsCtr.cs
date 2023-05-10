@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
     {
         BackupDatabase dbBackup = new BackupDatabase();
         ConfigCheck checkConfig = new ConfigCheck();
-        
+
         // GET: api/<Configs>
         [HttpGet]
         public IEnumerable<ConfigsTb> Get()
@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}/Computers")]
         public List<ComputersTb> GetComputers(int id)
         {
-            return dbBackup.Configs.Find(id).GetComputers(id,dbBackup);
+            return dbBackup.Configs.Find(id).GetComputers(id, dbBackup);
         }
 
         // GET api/<Configs>/5/Groups
@@ -86,7 +86,7 @@ namespace WebAPI.Controllers
         // PUT api/<Configs>/5
         [HttpPut("{id}")]
         public ActionResult<ConfigsTb> Put(int id, [FromBody] ConfigsTb config)
-        {            
+        {
             ConfigsTb updatedConfig = dbBackup.Configs.Find(id);
 
             try
@@ -97,16 +97,23 @@ namespace WebAPI.Controllers
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
+            if (config.ConfigName != null)
+                updatedConfig.ConfigName = config.ConfigName;
+            if (config.CreationDate != null)
+                updatedConfig.CreationDate = config.CreationDate;
+            if (config.Algorithm != null)
+                updatedConfig.Algorithm = config.Algorithm;
+            if (config.MaxPackageAmount != null)
+                updatedConfig.MaxPackageAmount = config.MaxPackageAmount;
+            if (config.MaxPackageSize != null)
+                updatedConfig.MaxPackageSize = config.MaxPackageSize;
+            if (config.Schedule != null)
+                updatedConfig.Schedule = config.Schedule;
+            if (config.Zip != null)
+                updatedConfig.Zip = config.Zip;
 
-            updatedConfig.ConfigName = config.ConfigName;
-            updatedConfig.CreationDate = config.CreationDate;
-            updatedConfig.Algorithm = config.Algorithm;
-            updatedConfig.MaxPackageAmount = config.MaxPackageAmount;
-            updatedConfig.MaxPackageSize = config.MaxPackageSize;
-            updatedConfig.Schedule = config.Schedule;
-            updatedConfig.Zip = config.Zip;
             dbBackup.SaveChanges();
-            
+
             return updatedConfig;
         }
 
