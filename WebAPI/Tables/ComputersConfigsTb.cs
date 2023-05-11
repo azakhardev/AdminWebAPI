@@ -9,7 +9,7 @@ namespace WebAPI.Tables
         public int ID { get; set; }
         public int ComputerID { get; set; }
         public int ConfigID { get; set; }
-        public string Snapshot { get; set; }
+        public string? Snapshot { get; set; }
         //public int SnapshotVersion { get; set; }
 
         [ForeignKey("ComputersConfigsID")]

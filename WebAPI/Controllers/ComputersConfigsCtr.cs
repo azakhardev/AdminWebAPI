@@ -22,10 +22,14 @@ namespace WebAPI.Controllers
         }
 
         // DELETE api/<ComputersConfigsCtr>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{computerId}/{configId}")]
+        public void Delete(int computerId,int configId)
         {
-            dbBackup.ComputersConfigs.Remove(dbBackup.ComputersConfigs.Find(id));
+            if (dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId) != null)
+            {
+                dbBackup.ComputersConfigs.Remove(dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).FirstOrDefault());
+            }
+
             dbBackup.SaveChanges();
         }
     }
