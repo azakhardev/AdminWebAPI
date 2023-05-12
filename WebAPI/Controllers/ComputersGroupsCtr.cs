@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Tables;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,10 +23,14 @@ namespace WebAPI.Controllers
         }
 
         // DELETE api/<ComputersGroupsCtr>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{computerId}/{groupId}")]
+        public void Delete(int computerId, int groupId)
         {
-            dbBackup.ComputersConfigs.Remove(dbBackup.ComputersConfigs.Find(id));
+            if (dbBackup.ComputersGroups.Where(x => x.ComputerID == computerId).Where(x => x.GroupID == groupId) != null)
+            {
+                dbBackup.ComputersGroups.Remove(dbBackup.ComputersGroups.Where(x => x.ComputerID == computerId).Where(x => x.GroupID == groupId).FirstOrDefault());
+            }
+
             dbBackup.SaveChanges();
         }
     }
