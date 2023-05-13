@@ -11,13 +11,12 @@ namespace WebAPI.JWTAuthorization
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AuthorizeAdmin]
     public class AdminLoginCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
 
         [HttpPost]
-        public ActionResult<string> Post(AdminForLogin login)
+        public IActionResult Post(AdminForLogin login)
         {
             try
             {

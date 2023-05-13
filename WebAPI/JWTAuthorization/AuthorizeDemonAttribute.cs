@@ -11,7 +11,7 @@ namespace WebAPI.JWTAuthorization
         {
             try
             {
-                string token = context.HttpContext.Request.Headers["Authorized"].ToString().Split(' ').Last();
+                string token = context.HttpContext.Request.Headers["Authorization"].ToString().Split(' ').Last();
 
                 var json = JwtBuilder.Create()
                          .WithAlgorithm(new HMACSHA256Algorithm())
