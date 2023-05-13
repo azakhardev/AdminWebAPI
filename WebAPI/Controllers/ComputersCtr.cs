@@ -46,9 +46,12 @@ namespace WebAPI.Controllers
                 configs.Add(config);
             }
 
-            foreach (var computersGroups in dbBackup.ComputersGroups.Where(x => x.ComputerID == computerId))
+            List<ComputersGroupsTb> computersGroups = new List<ComputersGroupsTb>();
+            computersGroups = dbBackup.ComputersGroups.Where(x => x.ComputerID == computerId).ToList();
+
+            foreach (var computersGroup in computersGroups)
             {
-                foreach (var groupConfig in dbBackup.Groups.Find(computersGroups.ID).GetConfigs(computersGroups.ID, dbBackup))
+                foreach (var groupConfig in dbBackup.Groups.Find(computersGroup.GroupID).GetConfigs(computersGroup.GroupID, dbBackup))
                 {
                     configs.Add(groupConfig);
                 }
