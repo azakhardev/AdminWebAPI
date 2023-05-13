@@ -16,54 +16,54 @@ namespace WebAPI.Controllers
         BackupDatabase dbBackup = new BackupDatabase();
         GroupCheck checkGroup = new GroupCheck();
 
-        // GET: api/<Groups>
+        // Všechny skupiny
         [HttpGet]
         public IEnumerable<GroupsTb> Get()
         {
             return dbBackup.Groups.Include(x => x.GroupsConfigs).Include(x => x.ComputersGroups);
         }
 
-        // GET api/<Groups>/5
+        // Určitá skupina
         [HttpGet("{id}")]
         public GroupsTb Get(int id)
         {
             return dbBackup.Groups.Include(x => x.GroupsConfigs).Include(x => x.ComputersGroups).Where(x => x.ID == id).FirstOrDefault();
         }
 
-        // GET api/<Groups>/5/Computers
+        // Všechny počítače pro určitou skupinu
         [HttpGet("{id}/Computers")]
         public List<ComputersTb> GetComputers(int id)
         {
             return dbBackup.Groups.Find(id).GetComputers(id, dbBackup);
         }
 
-        // GET api/<Groups>/5/Configs
+        // Všechny configy pro určitou skupinu
         [HttpGet("{id}/Configs")]
         public List<ConfigsTb> GetConfigs(int id)
         {
             return dbBackup.Groups.Find(id).GetConfigs(id, dbBackup);
         }
 
-        // POST api/<Groups>
+        // Přidání nové skupiny
         [HttpPost]
         public ActionResult<GroupsTb> Post([FromBody] GroupsTb group)
         {
             try
             {
                 checkGroup.CheckAll(group);
+                dbBackup.Groups.Add(group);
             }
             catch (FormatException ex)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
-            dbBackup.Groups.Add(group);
             dbBackup.SaveChanges();
 
             return group;
         }
 
-        // PUT api/<Groups>/5
+        // Změna určité skupiny
         [HttpPut("{id}")]
         public ActionResult<GroupsTb> Put(int id, [FromBody] GroupsTb group)
         {
@@ -81,22 +81,31 @@ namespace WebAPI.Controllers
             try
             {
                 checkGroup.CheckAll(updatedGroup);
+                dbBackup.SaveChanges();
             }
             catch (FormatException ex)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
-            dbBackup.SaveChanges();
             return updatedGroup;
         }
 
-        // DELETE api/<Groups>/5
+        // Odstranění určité skupiny
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<string> Delete(int id)
         {
-            dbBackup.Groups.Remove(dbBackup.Groups.Find(id));
-            dbBackup.SaveChanges();
+            try
+            {
+                dbBackup.Groups.Remove(dbBackup.Groups.Find(id));
+                dbBackup.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
+            return "Group deleted successfully.";
         }
     }
 }

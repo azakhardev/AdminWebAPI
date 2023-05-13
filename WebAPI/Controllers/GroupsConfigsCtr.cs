@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WebAPI.Tables;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,22 +12,39 @@ namespace WebAPI.Controllers
     {
         public BackupDatabase dbBackup = new BackupDatabase();
 
-        // POST api/<GroupsConfigsCtr>
-        [HttpPost("{grpId}/{cfId}")]
-        public void Post(int grpId, int cfId)
+        // Přidání relace pro určitou skupinu a config
+        [HttpPost("{groupId}/{configId}")]
+        public ActionResult<string> Post(int groupId, int configId)
         {
-            GroupsConfigsTb grpCf = new GroupsConfigsTb() { ConfigID = cfId, GroupID = grpId};
 
+            if (dbBackup.Configs.Find(configId) == null)
+                return $"Config with id {configId} doesn't exist.";
+
+            if (dbBackup.Groups.Find(groupId) == null)
+                return $"Group with id {groupId} doesn't exist.";
+
+            GroupsConfigsTb grpCf = new GroupsConfigsTb() { ConfigID = configId, GroupID = groupId };
             dbBackup.GroupsConfigs.Add(grpCf);
             dbBackup.SaveChanges();
+
+            return $"Relation with group (id:{groupId}) and config (id:{configId}) created successfully.";
         }
 
-        // DELETE api/<GroupsConfigsCtr>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // Odstranění relace pro určitou skupinu a config
+        [HttpDelete("{groupId}/{configId}")]
+        public ActionResult<string> Delete(int groupId, int configId)
         {
-            dbBackup.ComputersConfigs.Remove(dbBackup.ComputersConfigs.Find(id));
-            dbBackup.SaveChanges();
+            try
+            {
+                dbBackup.GroupsConfigs.Remove(dbBackup.GroupsConfigs.Where(x => x.GroupID == groupId).Where(x => x.ConfigID == configId).LastOrDefault());
+                dbBackup.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
+            return "Relation deleted successfully.";
         }
     }
 }

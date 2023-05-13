@@ -15,52 +15,78 @@ namespace WebAPI.Controllers
         BackupDatabase dbBackup = new BackupDatabase();
         LogCheck checkLog = new LogCheck();
 
-        // GET: api/<Logs>
+        // Všechny reporty
         [HttpGet]
         public IEnumerable<LogsTb> Get()
         {
             return dbBackup.Logs;
         }
 
-        // GET api/<Logs>/5
+        // Určitý report
         [HttpGet("{id}")]
         public LogsTb Get(int id)
         {
             return dbBackup.Logs.Find(id);
         }
 
+        // Určitý reportu pro určitý počítač a config
         [HttpGet("{computerId}/{configId}")]
-        public int GetComputersConfigs(int computerId, int configId) 
+        public ActionResult<int> GetComputersConfigs(int computerId, int configId) 
         {
-            int computersConfigsId = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).FirstOrDefault().ID;
-            return computersConfigsId;
+            try
+            {
+                int computersConfigsId = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId).Where(x => x.ConfigID == configId).FirstOrDefault().ID;
+                return computersConfigsId;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
         }
 
-        // POST api/<Logs>
+        // Přidání reportu
         [HttpPost]
         public ActionResult<LogsTb> Post([FromBody] LogsTb log)
         {
             try
             {
                 checkLog.CheckAll(log);
+                dbBackup.Logs.Add(log);
+
+                if (dbBackup.Logs.Count() >= 999)
+                {
+                    int x = dbBackup.Logs.Count() - 999;
+                    for (int i = 0; i < x; i++)
+                    {
+                        dbBackup.Logs.Remove(dbBackup.Logs.First());
+                    }
+                }
+
+                dbBackup.SaveChanges();
             }
             catch (FormatException ex)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
-            dbBackup.Logs.Add(log);
-            dbBackup.SaveChanges();
-
             return log;
         }
 
-        // DELETE api/<Logs>/5
+        // Odstranění reportu
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<string> Delete(int id)
         {
-            dbBackup.Logs.Remove(dbBackup.Logs.Find(id));
-            dbBackup.SaveChanges();
+            try
+            {
+                dbBackup.Logs.Remove(dbBackup.Logs.Find(id));
+                dbBackup.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
+            return "Report deleted successfully";
         }
     }
 }

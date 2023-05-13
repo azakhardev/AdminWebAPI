@@ -1,4 +1,7 @@
-﻿namespace WebAPI.Tables.Help_Tables
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
+
+namespace WebAPI.Tables.Help_Tables
 {
     public class AdminsNoPass
     {
@@ -31,19 +34,23 @@
             return adminsNoPass;
         }
 
-        public AdminsNoPass GetAdminNoPass(int adminID, BackupDatabase dbBackup)
+        public ActionResult<AdminsNoPass> GetAdminNoPass(int adminID, BackupDatabase dbBackup)
         {
             AdminsTb admin = dbBackup.Admins.Find(adminID);
-            AdminsNoPass tbAdminNoPass = new AdminsNoPass()
+            if (admin != null)
             {
-                ID = admin.ID,
-                Username = admin.Username,
-                Active = admin.Active,
-                Description = admin.Description,
-                Email = admin.Email,
-                Schedule = admin.Schedule
-            };
-            return tbAdminNoPass;
+                AdminsNoPass tbAdminNoPass = new AdminsNoPass()
+                {
+                    ID = admin.ID,
+                    Username = admin.Username,
+                    Active = admin.Active,
+                    Description = admin.Description,
+                    Email = admin.Email,
+                    Schedule = admin.Schedule
+                };
+                return tbAdminNoPass;
+            }
+            throw new Exception("Admin with that id doesn't exist.");
         }
     }
 }

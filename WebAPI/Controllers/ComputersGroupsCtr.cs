@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WebAPI.Tables;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
@@ -12,26 +13,38 @@ namespace WebAPI.Controllers
     {
         public BackupDatabase dbBackup = new BackupDatabase();
 
-        // POST api/<ComputersGroupsCtr>
-        [HttpPost("{pcId}/{grpId}")]
-        public void Post(int pcId, int grpId)
+        // Přidání relace pro určitý počítač a skupinu
+        [HttpPost("{computerId}/{groupId}")]
+        public ActionResult<string> Post(int computerId, int groupId)
         {
-            ComputersGroupsTb pcGrp = new ComputersGroupsTb() { GroupID = grpId, ComputerID = pcId};
 
+            if (dbBackup.Computers.Find(computerId) == null)
+                return $"Computer with id {computerId} doesn't exist.";
+
+            if (dbBackup.Groups.Find(groupId) == null)
+                return $"Group with id {groupId} doesn't exist.";
+
+            ComputersGroupsTb pcGrp = new ComputersGroupsTb() { GroupID = groupId, ComputerID = computerId };
             dbBackup.ComputersGroups.Add(pcGrp);
             dbBackup.SaveChanges();
+
+            return $"Relation with computer (id:{computerId}) and group (id:{groupId}) created successfully.";
         }
 
-        // DELETE api/<ComputersGroupsCtr>/5
+        // Odstranění relace pro určitý počítač a skupinu
         [HttpDelete("{computerId}/{groupId}")]
-        public void Delete(int computerId, int groupId)
+        public ActionResult<string> Delete(int computerId, int groupId)
         {
-            if (dbBackup.ComputersGroups.Where(x => x.ComputerID == computerId).Where(x => x.GroupID == groupId) != null)
+            try
             {
                 dbBackup.ComputersGroups.Remove(dbBackup.ComputersGroups.Where(x => x.ComputerID == computerId).Where(x => x.GroupID == groupId).FirstOrDefault());
+                dbBackup.SaveChanges();
             }
-
-            dbBackup.SaveChanges();
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+            return "Relation deleted succesfully.";
         }
     }
 }

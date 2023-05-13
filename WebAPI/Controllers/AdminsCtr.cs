@@ -23,21 +23,31 @@ namespace WebAPI.Controllers
         AdminCheck checkAdmin = new AdminCheck();
         AdminsNoPass tbAdminNoPass = new AdminsNoPass();
 
-        // GET: api/<Admins>
+        // Všichni admini
         [HttpGet]
         public IEnumerable<AdminsNoPass> Get()
         {
             return tbAdminNoPass.GetAdminsNoPass(dbBackup);
         }
 
-        // GET api/<Admins>/5
+        // Určitý admin
         [HttpGet("{id}")]
-        public AdminsNoPass Get(int id)
+        public ActionResult<AdminsNoPass> Get(int id)
         {
+            try
+            {
+                tbAdminNoPass.GetAdminNoPass(id, dbBackup);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
+
             return tbAdminNoPass.GetAdminNoPass(id, dbBackup);
         }
 
-        // POST api/<Admins>
+        // Přidání admina
         [HttpPost]
         public ActionResult<AdminsTb> Post([FromBody] AdminsTb admin)
         {
@@ -55,11 +65,19 @@ namespace WebAPI.Controllers
             return admin;
         }
 
-        // PUT api/<Admins>/5
+        // Změna určitého admina
         [HttpPut("{id}")]
         public ActionResult<AdminsTb> Put(int id, [FromBody] AdminsTb admin)
         {
-            AdminsTb updatedAdmin = this.dbBackup.Admins.Find(id);
+            AdminsTb updatedAdmin = new AdminsTb();
+            try
+            {
+                updatedAdmin = this.dbBackup.Admins.Find(id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
 
             if (admin.Username != null)
                 updatedAdmin.Username = admin.Username;
@@ -87,12 +105,21 @@ namespace WebAPI.Controllers
             return updatedAdmin;
         }
 
-        // DELETE api/<Admins>/5
+        // Odstranění admina
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<string> Delete(int id)
         {
-            dbBackup.Admins.Remove(dbBackup.Admins.Find(id));
+            try
+            {
+                dbBackup.Admins.Remove(dbBackup.Admins.Find(id));
+            }
+            catch (FormatException ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
             dbBackup.SaveChanges();
+            return $"Admin deleted successfully";
         }
     }
 }
