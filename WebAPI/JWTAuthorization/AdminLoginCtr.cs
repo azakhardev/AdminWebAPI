@@ -23,15 +23,13 @@ namespace WebAPI.JWTAuthorization
             {
                 AdminsTb admin = dbBackup.Admins.Where(x => x.Username == login.Username).First();
 
-                if (login.Password == admin.Password)
+                if (admin.Password == login.Password)
                 {
                     string token = JwtBuilder.Create()
                     .WithAlgorithm(new HMACSHA256Algorithm())
                     .WithSecret("super-secret-foo")
                     .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
                     .AddClaim("username", admin.Username)
-                    .AddClaim("email", admin.Email)
-                    .AddClaim("active", admin.Active)
                     .Encode();
 
                     return Ok(new { token = token });
