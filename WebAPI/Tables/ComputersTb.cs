@@ -68,21 +68,16 @@ namespace WebAPI.Tables
             return groups;
         }
 
+        public List<LogsTb> GetLog(int computerId, BackupDatabase dbBackup)
+        {
+            List<LogsTb> logs = dbBackup.Logs.Where(x => x.ComputerId == computerId).ToList();
+
+            return logs;
+        }
+
         public List<LogsTb> GetLogs(int computerId, int configId, BackupDatabase dbBackup)
         {
-            ComputersConfigsTb tbComputersConfigs = dbBackup.ComputersConfigs.Where(x => x.ComputerID == computerId && x.ConfigID == configId).Single();
-            List<LogsTb> logs = new List<LogsTb>();
-
-            //LogsTb originalLog = dbBackup.Logs.Find(log.ComputerID);
-            //LogsForPC pcLog = new LogsForPC() {ComputerID = originalLog.ComputersConfigsID };
-
-            logs = dbBackup.Logs.Where(x => x.ComputersConfigsID == tbComputersConfigs.ID).ToList();
-
-            //List < LogsForPC >
-            //foreach (var item in logs)
-            //{
-
-            //}
+            List<LogsTb> logs = dbBackup.Logs.Where(x => x.ComputerId == computerId).Where(x => x.ConfigId == configId).ToList();
 
             return logs;
         }

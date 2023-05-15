@@ -10,7 +10,6 @@ namespace WebAPI.Tables
         public int ComputerID { get; set; }
         public int ConfigID { get; set; }
         public string? Snapshot { get; set; }
-        //public int SnapshotVersion { get; set; }
 
         [ForeignKey("ComputersConfigsID")]
         public virtual List<LogsTb>? Logs { get; set; }

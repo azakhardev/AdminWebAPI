@@ -67,13 +67,19 @@ namespace WebAPI.Controllers
             return dbBackup.Computers.Find(id).GetGroups(id, dbBackup);
         }
 
+        // Všechny Logy pro určitý počítač
+        [HttpGet("{computerId}/Logs")]
+        public List<LogsTb> GetLogsForPc(int computerId)
+        {
+            return dbBackup.Computers.Find(computerId).GetLog(computerId, dbBackup);
+        }
+
         // Všechny Logy pro určitý počítač a config
-        [HttpGet("{computerId}/{configId}/Logs")]
+        [HttpGet("{computerId}/Logs/{configId}")]
         public List<LogsTb> GetLogs(int computerId, int configId)
         {
             return dbBackup.Computers.Find(computerId).GetLogs(computerId, configId, dbBackup);
         }
-
 
         // Všechny snapshoty pro určitý počítač
         [HttpGet("{id}/Snapshots")]

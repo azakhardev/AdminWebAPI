@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/Admins")]
     [ApiController]
-    [AuthorizeAdmin]
+    //[AuthorizeAdmin]
     public class AdminsCtr : ControllerBase
     {
         BackupDatabase dbBackup = new BackupDatabase();
