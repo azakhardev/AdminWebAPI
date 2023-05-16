@@ -9,13 +9,17 @@ namespace WebAPI.Tables
 
         public int ComputersConfigsID { get; set; }
 
+        public string? ConfigName { get; set; }
+
         public int ComputerId { get; set; }
+
+        public string? ComputerName { get; set; }
 
         public int ConfigId { get; set; }
 
         public DateTime Date { get; set; }
 
-        public bool Errors { get; set; }        
+        public string Errors { get; set; }        
 
         public string? Message { get; set; }
 
