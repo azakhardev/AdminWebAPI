@@ -84,6 +84,13 @@ namespace WebAPI.Controllers
             return dbBackup.Configs.Find(configID).GetSnapshot(configID, computerID, dbBackup);
         }
 
+        //Id posledního configu
+        [HttpGet("LastConfig")]
+        public int GetLastConfigId()
+        {
+            return dbBackup.Configs.Last().ID;
+        }
+
         // Přidání configu
         [HttpPost]
         public ActionResult<ConfigsTb> Post([FromBody] ConfigsTb config)
