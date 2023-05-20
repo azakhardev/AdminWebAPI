@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
         [HttpGet("LastConfig")]
         public int GetLastConfigId()
         {
-            return dbBackup.Configs.Last().ID;
+            return dbBackup.Configs.OrderBy(x => x.ID).Last().ID;
         }
 
         // Přidání configu
