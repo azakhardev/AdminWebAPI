@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Net;
 using WebAPI.FormatCheck;
 using WebAPI.Tables;
+using WebAPI.Tables.Help_Tables;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -110,6 +111,34 @@ namespace WebAPI.Controllers
             return config;
         }
 
+        // Přidání sourcu
+        [HttpPost]
+        public ActionResult<SourcesTb> PostSource([FromBody] SourceToPost source)
+        {
+            SourcesTb newSource = new SourcesTb()
+            {
+                SourcePath = source.SourcePath,
+                ConfigID = source.ConfigId,
+                UpdateDate = DateTime.Now,
+                FileName = source.SourcePath.Remove(source.SourcePath.LastIndexOf('\\'))
+            };
+
+            dbBackup.Sources.Add(newSource);
+            dbBackup.SaveChanges();
+
+            return newSource;
+        }
+
+        // Přidání destinací
+        [HttpPost]
+        public ActionResult<DestinationsTb> PostDestinations([FromBody] DestinationsTb destination)
+        {
+            dbBackup.Destinations.Add(destination);
+            dbBackup.SaveChanges();
+
+            return destination;
+        }
+
         // Změna configu
         [HttpPut("{id}")]
         public ActionResult<ConfigsTb> Put(int id, [FromBody] ConfigsTb config)
@@ -156,7 +185,7 @@ namespace WebAPI.Controllers
                 updatedSource.FileName = source.FileName;
             if (source.UpdateDate != null)
                 updatedSource.UpdateDate = source.UpdateDate;
-            
+
             dbBackup.SaveChanges();
 
             return updatedSource;
@@ -164,13 +193,13 @@ namespace WebAPI.Controllers
 
         // Změna destinace pro určitý config
         [HttpPut("{destinationId}/Destination")]
-        public DestinationsTb PutDestinationPath(int destinationId, [FromBody] DestinationsTb destination) 
+        public DestinationsTb PutDestinationPath(int destinationId, [FromBody] DestinationsTb destination)
         {
             DestinationsTb updatedDestination = dbBackup.Destinations.Find(destinationId);
 
             if (destination.DestinationPath != null)
                 updatedDestination.DestinationPath = destination.DestinationPath;
-            
+
             dbBackup.SaveChanges();
 
             return updatedDestination;
