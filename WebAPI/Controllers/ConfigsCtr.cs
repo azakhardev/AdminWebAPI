@@ -175,16 +175,12 @@ namespace WebAPI.Controllers
 
         // Změna zdrojové cesty pro určitý config
         [HttpPut("{sourceId}/Source")]
-        public SourcesTb PutSourcePath(int sourceId, [FromBody] SourcesTb source)
+        public SourcesTb PutSourcePath(int sourceId, [FromBody] string source)
         {
             SourcesTb updatedSource = dbBackup.Sources.Find(sourceId);
 
-            if (source.SourcePath != null)
-                updatedSource.SourcePath = source.SourcePath;
-            if (source.FileName != null)
-                updatedSource.FileName = source.FileName;
-            if (source.UpdateDate != null)
-                updatedSource.UpdateDate = source.UpdateDate;
+            updatedSource.SourcePath = source;
+            updatedSource.FileName = source.Substring(source.LastIndexOf('\\')+1);
 
             dbBackup.SaveChanges();
 
@@ -203,7 +199,6 @@ namespace WebAPI.Controllers
             dbBackup.SaveChanges();
 
             return updatedDestination;
-
         }
 
         // Odstranění určitého configu
