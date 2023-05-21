@@ -112,7 +112,7 @@ namespace WebAPI.Controllers
         }
 
         // Přidání sourcu
-        [HttpPost("/Sources")]
+        [HttpPost("Sources")]
         public ActionResult<SourcesTb> PostSource([FromBody] SourceToPost source)
         {
             SourcesTb newSource = new SourcesTb()
@@ -130,7 +130,7 @@ namespace WebAPI.Controllers
         }
 
         // Přidání destinací
-        [HttpPost("/Destinations")]
+        [HttpPost("Destinations")]
         public ActionResult<DestinationsTb> PostDestinations([FromBody] DestinationsTb destination)
         {
             dbBackup.Destinations.Add(destination);
