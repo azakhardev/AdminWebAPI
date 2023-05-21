@@ -112,7 +112,7 @@ namespace WebAPI.Controllers
         }
 
         // Přidání sourcu
-        [HttpPost]
+        [HttpPost("/Sources")]
         public ActionResult<SourcesTb> PostSource([FromBody] SourceToPost source)
         {
             SourcesTb newSource = new SourcesTb()
@@ -120,7 +120,7 @@ namespace WebAPI.Controllers
                 SourcePath = source.SourcePath,
                 ConfigID = source.ConfigId,
                 UpdateDate = DateTime.Now,
-                FileName = source.SourcePath.Remove(source.SourcePath.LastIndexOf('\\'))
+                FileName = source.SourcePath.Substring(source.SourcePath.LastIndexOf('\\')+1)
             };
 
             dbBackup.Sources.Add(newSource);
@@ -130,7 +130,7 @@ namespace WebAPI.Controllers
         }
 
         // Přidání destinací
-        [HttpPost]
+        [HttpPost("/Destinations")]
         public ActionResult<DestinationsTb> PostDestinations([FromBody] DestinationsTb destination)
         {
             dbBackup.Destinations.Add(destination);
