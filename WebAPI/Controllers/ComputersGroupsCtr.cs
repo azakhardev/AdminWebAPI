@@ -7,7 +7,7 @@ using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ComputersGroups")]
     [ApiController]
     public class ComputersGroupsCtr : ControllerBase
     {

@@ -7,7 +7,7 @@ using WebAPI.Tables;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ComputersConfigs")]
     [ApiController]
     public class ComputersConfigsCtr : ControllerBase
     {

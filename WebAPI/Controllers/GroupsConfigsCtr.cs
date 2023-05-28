@@ -6,7 +6,7 @@ using WebAPI.Tables;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/GroupsConfigs")]
     [ApiController]
     public class GroupsConfigsCtr : ControllerBase
     {
