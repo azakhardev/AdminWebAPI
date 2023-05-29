@@ -65,6 +65,23 @@ namespace WebAPI.Controllers
             return admin;
         }
 
+        //Poslání mailu
+        [HttpPost("Email/{adminId}")]
+        public void SendEmail(int adminId)
+        {
+            string adminMail = dbBackup.Admins.Find(adminId).Email;
+            List<LogsTb> messageList = dbBackup.Logs.Where(x => x.Errors == "Yes").ToList();
+            string messageBody = "";
+
+            foreach (var item in messageList)
+            {
+                messageBody = messageBody + item.Message + "\n";
+            }
+
+            EmailClient.Send(adminMail, messageBody);
+        }
+
+
         // Změna určitého admina
         [HttpPut("{id}")]
         public ActionResult<AdminsTb> Put(int id, [FromBody] AdminsTb admin)
