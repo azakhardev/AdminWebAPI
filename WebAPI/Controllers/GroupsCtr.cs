@@ -44,6 +44,23 @@ namespace WebAPI.Controllers
             return dbBackup.Groups.Find(id).GetConfigs(id, dbBackup);
         }
 
+        /*
+        // Všechny počítače které nejsou přiřazené k uřčité skupině
+        [HttpGet("{groupId}/UnassignedComputers")]
+        public List<ConfigsTb> GetUnassignedConfigs(int groupId)
+        {
+            List<ConfigsTb> allConfigs = dbBackup.Configs.ToList();
+            List<ConfigsTb> configsInGrp = dbBackup.Groups.Find(groupId).GetConfigs(groupId, dbBackup);
+            return
+        }
+
+        // Všechny počítače pro určitou skupinu
+        [HttpGet("{groupId}/UnassignedComputers")]
+        public List<ComputersTb> GetUnassignedComputers(int groupId)
+        {
+            return dbBackup.Groups.Find(groupId).GetComputers(groupId, dbBackup);
+        }*/
+
         // Přidání nové skupiny
         [HttpPost]
         public ActionResult<GroupsTb> Post([FromBody] GroupsTb group)
