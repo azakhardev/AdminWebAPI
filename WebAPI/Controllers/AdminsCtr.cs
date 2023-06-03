@@ -21,13 +21,13 @@ namespace WebAPI.Controllers
     {
         BackupDatabase dbBackup = new BackupDatabase();
         AdminCheck checkAdmin = new AdminCheck();
-        AdminsNoPass tbAdminNoPass = new AdminsNoPass();
+        AdminsNoPass AdminNoPass = new AdminsNoPass();
 
         // Všichni admini
         [HttpGet]
         public IEnumerable<AdminsNoPass> Get()
         {
-            return tbAdminNoPass.GetAdminsNoPass(dbBackup);
+            return AdminNoPass.GetAdminsNoPass(dbBackup);
         }
 
         // Určitý admin
@@ -36,21 +36,42 @@ namespace WebAPI.Controllers
         {
             try
             {
-                tbAdminNoPass.GetAdminNoPass(id, dbBackup);
+                AdminNoPass.GetAdminNoPass(id, dbBackup);
             }
             catch (Exception ex)
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
             }
 
+            return AdminNoPass.GetAdminNoPass(id, dbBackup);
+        }
 
-            return tbAdminNoPass.GetAdminNoPass(id, dbBackup);
+        // Id admina podle jmena
+        [HttpGet("Id/{name}")]
+        public ActionResult<int> GetByName(string name)
+        {
+            try
+            {
+                AdminNoPass.GetAdminNoPass(name, dbBackup);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
+            }
+
+            return AdminNoPass.GetAdminNoPass(name, dbBackup).Value.ID;
         }
 
         // Přidání admina
         [HttpPost]
         public ActionResult<AdminsTb> Post([FromBody] AdminsTb admin)
         {
+            foreach (var item in dbBackup.Admins)
+            {
+                if (admin.Username == item.Username)
+                    return StatusCode((int)HttpStatusCode.BadRequest, $"Admin with this username already exists.");
+            }
+
             try
             {
                 checkAdmin.CheckAll(admin);
@@ -87,6 +108,13 @@ namespace WebAPI.Controllers
         public ActionResult<AdminsTb> Put(int id, [FromBody] AdminsTb admin)
         {
             AdminsTb updatedAdmin = new AdminsTb();
+
+            foreach (var item in dbBackup.Admins)
+            {
+                if (admin.Username == item.Username)
+                    return StatusCode((int)HttpStatusCode.BadRequest, $"Admin with this username already exists.");
+            }
+
             try
             {
                 updatedAdmin = this.dbBackup.Admins.Find(id);

@@ -52,5 +52,26 @@ namespace WebAPI.Tables.Help_Tables
             }
             throw new Exception("Admin with that id doesn't exist.");
         }
+
+        public ActionResult<AdminsNoPass> GetAdminNoPass(string adminName, BackupDatabase dbBackup)
+        {
+            AdminsTb admin = dbBackup.Admins.Where(x => x.Username == adminName).FirstOrDefault();
+            
+            if (admin != null)
+            {
+                AdminsNoPass tbAdminNoPass = new AdminsNoPass()
+                {
+                    ID = admin.ID,
+                    Username = admin.Username,
+                    Active = admin.Active,
+                    Description = admin.Description,
+                    Email = admin.Email,
+                    Schedule = admin.Schedule
+                };
+                return tbAdminNoPass;
+            }
+
+            throw new Exception("Admin with that name doesn't exist.");
+        }
     }
 }

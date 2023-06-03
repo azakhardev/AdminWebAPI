@@ -13,6 +13,7 @@ namespace WebAPI.Tables.Help_Tables
     {
         BackupDatabase dbBackup = new BackupDatabase();
         static bool mailSent = false;
+        
         public static void SendCompletedCallback(object sender, AsyncCompletedEventArgs e)
         {
             String token = (string)e.UserState;
@@ -35,7 +36,8 @@ namespace WebAPI.Tables.Help_Tables
 
         public static void Send(string adminMail, string messageBody)
         {
-            SmtpClient emailClient = new SmtpClient();
+            SmtpClient emailClient = new SmtpClient("127.0.0.1", 25);
+            emailClient.UseDefaultCredentials = true;
             MailAddress from = new MailAddress("reports@api.com", "reports" + (char)0xD8 + "Clayton", System.Text.Encoding.UTF8);
             MailAddress to = new MailAddress(adminMail);
             MailMessage message = new MailMessage(from, to);
@@ -45,9 +47,8 @@ namespace WebAPI.Tables.Help_Tables
 
             string userState = "test message1";
             emailClient.SendAsync(message, userState);
-            message.Dispose();
+            Console.WriteLine("Email send successfully");
         }
-
 
         public void Dispose()
         {
