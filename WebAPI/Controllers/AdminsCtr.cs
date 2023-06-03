@@ -50,15 +50,6 @@ namespace WebAPI.Controllers
         [HttpGet("Id/{name}")]
         public ActionResult<int> GetByName(string name)
         {
-            try
-            {
-                AdminNoPass.GetAdminNoPass(name, dbBackup);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest, $"{ex}");
-            }
-
             return AdminNoPass.GetAdminNoPass(name, dbBackup).Value.ID;
         }
 
