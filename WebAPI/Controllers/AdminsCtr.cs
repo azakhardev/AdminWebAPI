@@ -100,12 +100,6 @@ namespace WebAPI.Controllers
         {
             AdminsTb updatedAdmin = new AdminsTb();
 
-            foreach (var item in dbBackup.Admins)
-            {
-                if (admin.Username == item.Username)
-                    return StatusCode((int)HttpStatusCode.BadRequest, $"Admin with this username already exists.");
-            }
-
             try
             {
                 updatedAdmin = this.dbBackup.Admins.Find(id);

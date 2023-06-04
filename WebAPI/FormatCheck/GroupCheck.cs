@@ -15,7 +15,7 @@ namespace WebAPI.FormatCheck
 
         public void GroupNameCheck(GroupsTb group)
         {
-            if (Regex.IsMatch(group.GroupName, @"^[A-Z0-9_]{3,50}$"))
+            if (Regex.IsMatch(group.GroupName, @"^[A-Za-z0-9_]{3,50}$"))
                 return;
             throw new FormatException("Invalid group name.");
         }
