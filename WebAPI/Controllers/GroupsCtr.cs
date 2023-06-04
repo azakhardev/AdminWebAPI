@@ -61,6 +61,13 @@ namespace WebAPI.Controllers
             return dbBackup.Groups.Find(groupId).GetComputers(groupId, dbBackup);
         }*/
 
+        //Id posledního configu
+        [HttpGet("LastGroup")]
+        public int GetLastGroupId()
+        {
+            return dbBackup.Groups.OrderBy(x => x.ID).Last().ID;
+        }
+
         // Přidání nové skupiny
         [HttpPost]
         public ActionResult<GroupsTb> Post([FromBody] GroupsTb group)
